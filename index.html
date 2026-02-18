@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Bestie Birthday 🌸</title>
+<title>Bestie Birthday 🌸 Open When</title>
 
 <!-- Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Poppins&display=swap" rel="stylesheet">
@@ -11,7 +11,6 @@
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
 <style>
-/* BODY */
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
@@ -23,13 +22,11 @@ body {
   transition: 0.5s;
 }
 
-/* NIGHT MODE */
 body.night {
   background: linear-gradient(135deg, #1e1e2f, #3a3a6a);
   color: #eee;
 }
 
-/* Floating lilies */
 .lily {
   position: absolute;
   width: 50px;
@@ -41,14 +38,12 @@ body.night {
   100% { transform: translateY(-100px) rotate(360deg); }
 }
 
-/* Titles */
 h1 {
   font-family: 'Dancing Script', cursive;
   font-size: 3em;
   margin-top: 40px;
 }
 
-/* Cards */
 .card {
   background: rgba(255,255,255,0.8);
   padding: 20px;
@@ -64,10 +59,8 @@ h1 {
   box-shadow: 0 12px 30px rgba(136, 14, 79, 0.5);
 }
 
-/* Hidden sections */
 .hidden { display: none; }
 
-/* Gallery grid */
 .gallery {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -80,7 +73,6 @@ h1 {
   box-shadow: 0 4px 10px rgba(136,14,79,0.2);
 }
 
-/* Buttons */
 button {
   padding: 10px 20px;
   border: none;
@@ -97,106 +89,164 @@ button:hover {
 }
 </style>
 </head>
-
 <body>
 
-<!-- MAIN CONTENT -->
-<div id="mainContent">
+<h1>🌸 Open When… 🌸</h1>
 
-  <h1>🌸 Open When… 🌸</h1>
+<!-- CARD LIST -->
+<div class="card" onclick="toggleSection('birthday')">🎂 It’s Your Birthday</div>
+<div class="card" onclick="toggleSection('needHug')">🤗 You Need a Hug</div>
+<div class="card" onclick="toggleSection('homesick')">🏠 You Feel Homesick / Lonely</div>
+<div class="card" onclick="toggleSection('stressed')">😩 You Are Overwhelmed / Stressed</div>
+<div class="card" onclick="toggleSection('motivation')">💪 You Need Motivation</div>
+<div class="card" onclick="toggleSection('sick')">🤒 You Are Sick</div>
+<div class="card" onclick="toggleSection('mad')">😡 We Are Fighting / You Are Mad at Me</div>
+<div class="card" onclick="toggleSection('cantSleep')">🌙 You Can't Sleep</div>
+<div class="card" onclick="toggleSection('laugh')">😂 You Need a Laugh</div>
+<div class="card" onclick="toggleSection('milestone')">🎉 You Accomplished Something</div>
+<div class="card" onclick="toggleSection('holiday')">🎁 Holiday / Anniversary</div>
+<div class="card" onclick="toggleSection('bored')">😴 You Are Bored</div>
+<div class="card" onclick="toggleSection('rainy')">☔ It’s a Rainy Day</div>
+<div class="card" onclick="toggleSection('missMe')">💌 You Miss Me</div>
+<div class="card" onclick="toggleSection('forgetMe')">🖼 You Forget What I Look Like</div>
+<div class="card" onclick="toggleNight()">🌙 Toggle Night Mode</div>
 
-  <!-- CARDS -->
-  <div class="card" onclick="openBirthday()">
-    🎂 Open When It’s Your Birthday
-  </div>
+<h2 id="countdown"></h2>
 
-  <div class="card" onclick="toggleSection('chaosGallery')">
-    📸 Open When You Miss Our Chaos
-  </div>
+<!-- CARD CONTENTS -->
 
-  <div class="card" onclick="toggleSection('funnyVideos')">
-    🎥 Open When You Need To Laugh
-  </div>
-
-  <div class="card" onclick="playSong()">
-    🎵 Open When You Need Our Song
-  </div>
-
-  <div class="card" onclick="toggleSection('memoryQuiz')">
-    🎮 Bestie Memory Quiz
-  </div>
-
-  <div class="card" onclick="toggleNight()">
-    🌙 Toggle Night Mode
-  </div>
-
-  <div class="card" onclick="toggleSection('mallMemories')">
-    🛍 Open When We Go To The Mall
-  </div>
-
-  <div class="card" onclick="toggleSection('emotional')">
-    🥺 Open When You Feel Alone
-  </div>
-
-  <h2 id="countdown"></h2>
-
-  <!-- BIRTHDAY MESSAGE -->
-  <div id="birthdayMessage" class="hidden">
-    <h2>HAPPY BIRTHDAY 💖</h2>
-    <p>You are the most amazing human and my favorite chaos partner! 🎉</p>
-    <img src="bestie_photo.jpg" alt="Us together">
-  </div>
-
-  <!-- CHAOS GALLERY -->
-  <div id="chaosGallery" class="hidden gallery">
-    <img src="photo1.jpg">
-    <img src="photo2.jpg">
-    <img src="photo3.jpg">
-  </div>
-
-  <!-- FUNNY VIDEOS -->
-  <div id="funnyVideos" class="hidden gallery">
-    <video controls src="video1.mp4"></video>
-    <video controls src="video2.mp4"></video>
-  </div>
-
-  <!-- MALL MEMORIES -->
-  <div id="mallMemories" class="hidden gallery">
-    <img src="mall1.jpg">
-    <video controls src="mallvideo.mp4"></video>
-  </div>
-
-  <!-- EMOTIONAL SECTION -->
-  <div id="emotional" class="hidden">
-    <p>Hey… I know things feel heavy sometimes, but you are my sunshine 🌸</p>
-    <img src="softphoto.jpg">
-  </div>
-
-  <!-- MEMORY QUIZ -->
-  <div id="memoryQuiz" class="hidden">
-    <h2>Memory Quiz 🎮</h2>
-    <p>Where did we first meet?</p>
-    <button onclick="alert('Correct 😌')">School</button>
-    <button onclick="alert('WRONG. Fake bestie.')">Mars</button>
-  </div>
-
-  <!-- AUDIO -->
-  <audio id="song" src="song.mp3"></audio>
-
+<!-- Birthday -->
+<div id="birthday" class="hidden gallery">
+  <h2>HAPPY BIRTHDAY! 💖</h2>
+  <img src="bestie_photo.jpg" alt="Birthday Photo">
+  <p>Confetti! 🎉 You are amazing!</p>
+  <button onclick="confettiBlast()">Celebrate 🎊</button>
 </div>
 
+<!-- Need Hug -->
+<div id="needHug" class="hidden gallery">
+  <img src="teddy_bear.jpg" alt="Teddy Bear Hug">
+  <p>Sending you a virtual hug 🤗💖</p>
+</div>
+
+<!-- Homesick / Lonely -->
+<div id="homesick" class="hidden gallery">
+  <p>People who love you:</p>
+  <ul>
+    <li>Me 💕</li>
+    <li>Mom</li>
+    <li>Dad</li>
+  </ul>
+  <img src="favorite_memory.jpg" alt="Favorite Memory">
+</div>
+
+<!-- Stressed -->
+<div id="stressed" class="hidden gallery">
+  <img src="tea_bag.jpg" alt="Tea Bag">
+  <img src="stress_ball.jpg" alt="Stress Ball">
+  <p>Take a deep breath, you’ve got this! 🌸</p>
+</div>
+
+<!-- Motivation -->
+<div id="motivation" class="hidden gallery">
+  <p>Remember all you’ve accomplished! 💪</p>
+  <ul>
+    <li>Graduated 🎓</li>
+    <li>Learned to cook 🍳</li>
+    <li>Survived 2025 😎</li>
+  </ul>
+  <p>“You are stronger than you think!”</p>
+</div>
+
+<!-- Sick -->
+<div id="sick" class="hidden gallery">
+  <img src="tea_bag.jpg" alt="Tea Bag">
+  <img src="cough_drops.jpg" alt="Cough Drops">
+  <p>Feel better soon! 💖</p>
+</div>
+
+<!-- Mad / Fighting -->
+<div id="mad" class="hidden gallery">
+  <p>Hey… I’m sorry 😌💖</p>
+  <p>Here’s why I love you:</p>
+  <ul>
+    <li>Your smile 😊</li>
+    <li>Our chaos adventures 🎉</li>
+    <li>All the inside jokes 😂</li>
+  </ul>
+</div>
+
+<!-- Can't Sleep -->
+<div id="cantSleep" class="hidden gallery">
+  <img src="relaxing_tea.jpg" alt="Relaxing Tea">
+  <p>Read this poem and rest easy… 🌙</p>
+</div>
+
+<!-- Need a Laugh -->
+<div id="laugh" class="hidden gallery">
+  <img src="funny_meme1.jpg" alt="Meme 1">
+  <img src="funny_meme2.jpg" alt="Meme 2">
+  <p>😂 Hope this made you laugh!</p>
+</div>
+
+<!-- Milestone -->
+<div id="milestone" class="hidden gallery">
+  <p>Congrats! 🎉 You did it!</p>
+  <button onclick="confettiBlast()">Celebrate 🎊</button>
+</div>
+
+<!-- Holiday / Anniversary -->
+<div id="holiday" class="hidden gallery">
+  <p>Happy special day! 💖</p>
+  <img src="holiday_card.jpg" alt="Holiday Card">
+</div>
+
+<!-- Bored -->
+<div id="bored" class="hidden gallery">
+  <p>Cozy activities or movies to watch:</p>
+  <ul>
+    <li>Watch a movie 🎬</li>
+    <li>Try a puzzle 🧩</li>
+    <li>Listen to music 🎵</li>
+  </ul>
+</div>
+
+<!-- Rainy Day -->
+<div id="rainy" class="hidden gallery">
+  <p>Perfect rainy day ideas 🌧️:</p>
+  <ul>
+    <li>Read a book 📖</li>
+    <li>Watch a cozy movie 🎬</li>
+    <li>Drink hot chocolate ☕</li>
+  </ul>
+</div>
+
+<!-- Miss Me -->
+<div id="missMe" class="hidden gallery">
+  <img src="framed_photo.jpg" alt="Framed Photo">
+  <p>Wish I was there with you 💖</p>
+</div>
+
+<!-- Forget Me -->
+<div id="forgetMe" class="hidden gallery">
+  <img src="selfie.jpg" alt="Recent Selfie">
+  <p>Here’s a recent photo so you don’t forget me! 😘</p>
+</div>
+
+<!-- Audio -->
+<audio id="song" src="song.mp3"></audio>
+
 <script>
-// TOGGLE SECTIONS
+// TOGGLE CARD SECTIONS
 function toggleSection(id) {
   document.getElementById(id).classList.toggle("hidden");
 }
 
-// BIRTHDAY CONFETTI
-function openBirthday() {
-  document.getElementById("birthdayMessage").classList.toggle("hidden");
+// CONFETTI BLAST
+function confettiBlast() {
   confetti({
-    particleCount: 150,
-    spread: 70,
+    particleCount: 200,
+    spread: 80,
     colors: ['#f8bbd0', '#fce4ec', '#c8e6c9']
   });
 }
@@ -212,13 +262,12 @@ function toggleNight() {
 }
 
 // COUNTDOWN
-const birthday = new Date("2026-03-01"); // CHANGE DATE
+const birthday = new Date("2026-03-01"); // Change date
 setInterval(() => {
   const now = new Date();
   const diff = birthday - now;
-  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-  document.getElementById("countdown").innerText =
-    "Countdown: " + days + " days 💖";
+  const days = Math.floor(diff / (1000*60*60*24));
+  document.getElementById("countdown").innerText = "Countdown: " + days + " days 💖";
 }, 1000);
 </script>
 
