@@ -44,33 +44,43 @@ h1 {
   margin-top: 40px;
 }
 
-.card {
-  background: rgba(255,255,255,0.8);
-  padding: 20px;
+/* CARD STYLING */
+.cardContainer {
+  position: relative;
+  width: 90%;
+  max-width: 500px;
   margin: 20px auto;
+}
+
+.card {
+  background: rgba(255,255,255,0.85);
+  padding: 20px;
   border-radius: 20px;
-  width: 300px;
   cursor: pointer;
   box-shadow: 0 8px 20px rgba(136, 14, 79, 0.3);
   transition: 0.3s;
 }
 .card:hover {
-  transform: scale(1.05);
+  transform: scale(1.03);
   box-shadow: 0 12px 30px rgba(136, 14, 79, 0.5);
 }
 
-.hidden { display: none; }
-
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 10px;
-  padding: 20px;
+.cardContent {
+  margin-top: 15px;
+  display: none;
+  transition: all 0.4s ease;
+  text-align: center;
 }
-.gallery img, .gallery video {
+
+.cardContent.show {
+  display: block;
+}
+
+.cardContent img, .cardContent video {
   width: 100%;
   border-radius: 15px;
   box-shadow: 0 4px 10px rgba(136,14,79,0.2);
+  margin-bottom: 10px;
 }
 
 button {
@@ -81,7 +91,7 @@ button {
   color: white;
   cursor: pointer;
   font-weight: bold;
-  margin: 10px;
+  margin: 10px 0;
 }
 button:hover {
   background: #f06292;
@@ -89,180 +99,188 @@ button:hover {
 }
 </style>
 </head>
+
 <body>
 
 <h1>🌸 Open When… 🌸</h1>
-
-<!-- CARD LIST -->
-<div class="card" onclick="toggleSection('birthday')">🎂 It’s Your Birthday</div>
-<div class="card" onclick="toggleSection('needHug')">🤗 You Need a Hug</div>
-<div class="card" onclick="toggleSection('homesick')">🏠 You Feel Homesick / Lonely</div>
-<div class="card" onclick="toggleSection('stressed')">😩 You Are Overwhelmed / Stressed</div>
-<div class="card" onclick="toggleSection('motivation')">💪 You Need Motivation</div>
-<div class="card" onclick="toggleSection('sick')">🤒 You Are Sick</div>
-<div class="card" onclick="toggleSection('mad')">😡 We Are Fighting / You Are Mad at Me</div>
-<div class="card" onclick="toggleSection('cantSleep')">🌙 You Can't Sleep</div>
-<div class="card" onclick="toggleSection('laugh')">😂 You Need a Laugh</div>
-<div class="card" onclick="toggleSection('milestone')">🎉 You Accomplished Something</div>
-<div class="card" onclick="toggleSection('holiday')">🎁 Holiday / Anniversary</div>
-<div class="card" onclick="toggleSection('bored')">😴 You Are Bored</div>
-<div class="card" onclick="toggleSection('rainy')">☔ It’s a Rainy Day</div>
-<div class="card" onclick="toggleSection('missMe')">💌 You Miss Me</div>
-<div class="card" onclick="toggleSection('forgetMe')">🖼 You Forget What I Look Like</div>
-<div class="card" onclick="toggleNight()">🌙 Toggle Night Mode</div>
-
 <h2 id="countdown"></h2>
 
-<!-- CARD CONTENTS -->
-
-<!-- Birthday -->
-<div id="birthday" class="hidden gallery">
-  <h2>HAPPY BIRTHDAY! 💖</h2>
-  <img src="bestie_photo.jpg" alt="Birthday Photo">
-  <p>Confetti! 🎉 You are amazing!</p>
-  <button onclick="confettiBlast()">Celebrate 🎊</button>
+<!-- CARD CONTAINERS -->
+<div class="cardContainer">
+  <div class="card" onclick="toggleContent('birthdayContent')">🎂 It’s Your Birthday</div>
+  <div id="birthdayContent" class="cardContent">
+    <h2>HAPPY BIRTHDAY! 💖</h2>
+    <img src="bestie_photo.jpg" alt="Birthday Photo">
+    <p>Confetti! 🎉 You are amazing!</p>
+    <button onclick="confettiBlast()">Celebrate 🎊</button>
+  </div>
 </div>
 
-<!-- Need Hug -->
-<div id="needHug" class="hidden gallery">
-  <img src="teddy_bear.jpg" alt="Teddy Bear Hug">
-  <p>Sending you a virtual hug 🤗💖</p>
+<div class="cardContainer">
+  <div class="card" onclick="toggleContent('needHugContent')">🤗 You Need a Hug</div>
+  <div id="needHugContent" class="cardContent">
+    <img src="teddy_bear.jpg" alt="Teddy Bear Hug">
+    <p>Sending you a virtual hug 💖</p>
+  </div>
 </div>
 
-<!-- Homesick / Lonely -->
-<div id="homesick" class="hidden gallery">
-  <p>People who love you:</p>
-  <ul>
-    <li>Me 💕</li>
-    <li>Mom</li>
-    <li>Dad</li>
-  </ul>
-  <img src="favorite_memory.jpg" alt="Favorite Memory">
+<div class="cardContainer">
+  <div class="card" onclick="toggleContent('homesickContent')">🏠 You Feel Homesick / Lonely</div>
+  <div id="homesickContent" class="cardContent">
+    <p>People who love you:</p>
+    <ul>
+      <li>Me 💕</li>
+      <li>Mom</li>
+      <li>Dad</li>
+    </ul>
+    <img src="favorite_memory.jpg" alt="Favorite Memory">
+  </div>
 </div>
 
-<!-- Stressed -->
-<div id="stressed" class="hidden gallery">
-  <img src="tea_bag.jpg" alt="Tea Bag">
-  <img src="stress_ball.jpg" alt="Stress Ball">
-  <p>Take a deep breath, you’ve got this! 🌸</p>
+<div class="cardContainer">
+  <div class="card" onclick="toggleContent('stressedContent')">😩 You Are Overwhelmed / Stressed</div>
+  <div id="stressedContent" class="cardContent">
+    <img src="tea_bag.jpg" alt="Tea Bag">
+    <img src="stress_ball.jpg" alt="Stress Ball">
+    <p>Take a deep breath, you’ve got this! 🌸</p>
+  </div>
 </div>
 
-<!-- Motivation -->
-<div id="motivation" class="hidden gallery">
-  <p>Remember all you’ve accomplished! 💪</p>
-  <ul>
-    <li>Graduated 🎓</li>
-    <li>Learned to cook 🍳</li>
-    <li>Survived 2025 😎</li>
-  </ul>
-  <p>“You are stronger than you think!”</p>
+<div class="cardContainer">
+  <div class="card" onclick="toggleContent('motivationContent')">💪 You Need Motivation</div>
+  <div id="motivationContent" class="cardContent">
+    <p>Remember all you’ve accomplished! 💪</p>
+    <ul>
+      <li>Graduated 🎓</li>
+      <li>Learned to cook 🍳</li>
+      <li>Survived 2025 😎</li>
+    </ul>
+    <p>“You are stronger than you think!”</p>
+  </div>
 </div>
 
-<!-- Sick -->
-<div id="sick" class="hidden gallery">
-  <img src="tea_bag.jpg" alt="Tea Bag">
-  <img src="cough_drops.jpg" alt="Cough Drops">
-  <p>Feel better soon! 💖</p>
+<div class="cardContainer">
+  <div class="card" onclick="toggleContent('sickContent')">🤒 You Are Sick</div>
+  <div id="sickContent" class="cardContent">
+    <img src="tea_bag.jpg" alt="Tea Bag">
+    <img src="cough_drops.jpg" alt="Cough Drops">
+    <p>Feel better soon! 💖</p>
+  </div>
 </div>
 
-<!-- Mad / Fighting -->
-<div id="mad" class="hidden gallery">
-  <p>Hey… I’m sorry 😌💖</p>
-  <p>Here’s why I love you:</p>
-  <ul>
-    <li>Your smile 😊</li>
-    <li>Our chaos adventures 🎉</li>
-    <li>All the inside jokes 😂</li>
-  </ul>
+<div class="cardContainer">
+  <div class="card" onclick="toggleContent('madContent')">😡 We Are Fighting / You Are Mad at Me</div>
+  <div id="madContent" class="cardContent">
+    <p>Hey… I’m sorry 😌💖</p>
+    <p>Here’s why I love you:</p>
+    <ul>
+      <li>Your smile 😊</li>
+      <li>Our chaos adventures 🎉</li>
+      <li>All the inside jokes 😂</li>
+    </ul>
+  </div>
 </div>
 
-<!-- Can't Sleep -->
-<div id="cantSleep" class="hidden gallery">
-  <img src="relaxing_tea.jpg" alt="Relaxing Tea">
-  <p>Read this poem and rest easy… 🌙</p>
+<div class="cardContainer">
+  <div class="card" onclick="toggleContent('cantSleepContent')">🌙 You Can't Sleep</div>
+  <div id="cantSleepContent" class="cardContent">
+    <img src="relaxing_tea.jpg" alt="Relaxing Tea">
+    <p>Read this poem and rest easy… 🌙</p>
+  </div>
 </div>
 
-<!-- Need a Laugh -->
-<div id="laugh" class="hidden gallery">
-  <img src="funny_meme1.jpg" alt="Meme 1">
-  <img src="funny_meme2.jpg" alt="Meme 2">
-  <p>😂 Hope this made you laugh!</p>
+<div class="cardContainer">
+  <div class="card" onclick="toggleContent('laughContent')">😂 You Need a Laugh</div>
+  <div id="laughContent" class="cardContent">
+    <img src="funny_meme1.jpg" alt="Meme 1">
+    <img src="funny_meme2.jpg" alt="Meme 2">
+    <p>😂 Hope this made you laugh!</p>
+  </div>
 </div>
 
-<!-- Milestone -->
-<div id="milestone" class="hidden gallery">
-  <p>Congrats! 🎉 You did it!</p>
-  <button onclick="confettiBlast()">Celebrate 🎊</button>
+<div class="cardContainer">
+  <div class="card" onclick="toggleContent('milestoneContent')">🎉 You Accomplished Something</div>
+  <div id="milestoneContent" class="cardContent">
+    <p>Congrats! 🎉 You did it!</p>
+    <button onclick="confettiBlast()">Celebrate 🎊</button>
+  </div>
 </div>
 
-<!-- Holiday / Anniversary -->
-<div id="holiday" class="hidden gallery">
-  <p>Happy special day! 💖</p>
-  <img src="holiday_card.jpg" alt="Holiday Card">
+<div class="cardContainer">
+  <div class="card" onclick="toggleContent('holidayContent')">🎁 Holiday / Anniversary</div>
+  <div id="holidayContent" class="cardContent">
+    <p>Happy special day! 💖</p>
+    <img src="holiday_card.jpg" alt="Holiday Card">
+  </div>
 </div>
 
-<!-- Bored -->
-<div id="bored" class="hidden gallery">
-  <p>Cozy activities or movies to watch:</p>
-  <ul>
-    <li>Watch a movie 🎬</li>
-    <li>Try a puzzle 🧩</li>
-    <li>Listen to music 🎵</li>
-  </ul>
+<div class="cardContainer">
+  <div class="card" onclick="toggleContent('boredContent')">😴 You Are Bored</div>
+  <div id="boredContent" class="cardContent">
+    <p>Cozy activities or movies to watch:</p>
+    <ul>
+      <li>Watch a movie 🎬</li>
+      <li>Try a puzzle 🧩</li>
+      <li>Listen to music 🎵</li>
+    </ul>
+  </div>
 </div>
 
-<!-- Rainy Day -->
-<div id="rainy" class="hidden gallery">
-  <p>Perfect rainy day ideas 🌧️:</p>
-  <ul>
-    <li>Read a book 📖</li>
-    <li>Watch a cozy movie 🎬</li>
-    <li>Drink hot chocolate ☕</li>
-  </ul>
+<div class="cardContainer">
+  <div class="card" onclick="toggleContent('rainyContent')">☔ It’s a Rainy Day</div>
+  <div id="rainyContent" class="cardContent">
+    <p>Perfect rainy day ideas 🌧️:</p>
+    <ul>
+      <li>Read a book 📖</li>
+      <li>Watch a cozy movie 🎬</li>
+      <li>Drink hot chocolate ☕</li>
+    </ul>
+  </div>
 </div>
 
-<!-- Miss Me -->
-<div id="missMe" class="hidden gallery">
-  <img src="framed_photo.jpg" alt="Framed Photo">
-  <p>Wish I was there with you 💖</p>
+<div class="cardContainer">
+  <div class="card" onclick="toggleContent('missMeContent')">💌 You Miss Me</div>
+  <div id="missMeContent" class="cardContent">
+    <img src="framed_photo.jpg" alt="Framed Photo">
+    <p>Wish I was there with you 💖</p>
+  </div>
 </div>
 
-<!-- Forget Me -->
-<div id="forgetMe" class="hidden gallery">
-  <img src="selfie.jpg" alt="Recent Selfie">
-  <p>Here’s a recent photo so you don’t forget me! 😘</p>
+<div class="cardContainer">
+  <div class="card" onclick="toggleContent('forgetMeContent')">🖼 You Forget What I Look Like</div>
+  <div id="forgetMeContent" class="cardContent">
+    <img src="selfie.jpg" alt="Recent Selfie">
+    <p>Here’s a recent photo so you don’t forget me! 😘</p>
+  </div>
 </div>
 
-<!-- Audio -->
+<div class="cardContainer">
+  <div class="card" onclick="toggleNight()">🌙 Toggle Night Mode</div>
+</div>
+
+<!-- AUDIO -->
 <audio id="song" src="song.mp3"></audio>
 
 <script>
-// TOGGLE CARD SECTIONS
-function toggleSection(id) {
-  document.getElementById(id).classList.toggle("hidden");
+// TOGGLE CARD CONTENT
+function toggleContent(id) {
+  const el = document.getElementById(id);
+  el.classList.toggle('show');
 }
 
-// CONFETTI BLAST
+// CONFETTI
 function confettiBlast() {
-  confetti({
-    particleCount: 200,
-    spread: 80,
-    colors: ['#f8bbd0', '#fce4ec', '#c8e6c9']
-  });
+  confetti({ particleCount: 200, spread: 80, colors: ['#f8bbd0','#fce4ec','#c8e6c9'] });
 }
 
 // PLAY SONG
-function playSong() {
-  document.getElementById("song").play();
-}
+function playSong() { document.getElementById('song').play(); }
 
 // NIGHT MODE
-function toggleNight() {
-  document.body.classList.toggle("night");
-}
+function toggleNight() { document.body.classList.toggle('night'); }
 
 // COUNTDOWN
-const birthday = new Date("2026-03-01"); // Change date
+const birthday = new Date("2026-03-01"); // CHANGE DATE
 setInterval(() => {
   const now = new Date();
   const diff = birthday - now;
