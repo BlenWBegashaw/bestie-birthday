@@ -1,21 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>Bestie Birthday 🌸 Open When</title>
-
 <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Poppins&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-
 <style>
 body {
-  margin:0;
-  font-family:'Poppins',sans-serif;
-  background:linear-gradient(135deg,#fce4ec,#f8bbd0);
-  color:#880e4f;
-  transition:.5s;
-  overflow-x:hidden;
-  text-align:center;
+  margin:0; font-family:'Poppins',sans-serif; background:linear-gradient(135deg,#fce4ec,#f8bbd0);
+  color:#880e4f; transition:.5s; overflow-x:hidden; text-align:center;
 }
 body.night { background:linear-gradient(135deg,#1e1e2f,#3a3a6a); color:#eee; }
 h1 { font-family:'Dancing Script',cursive; font-size:3em; margin-top:40px; }
@@ -45,7 +38,6 @@ button:hover { background:#f06292; transform:scale(1.05); }
 @keyframes floatLily { 0%{transform:translateY(100vh) rotate(0deg);} 100%{transform:translateY(-100px) rotate(360deg);} }
 </style>
 </head>
-
 <body>
 <h1>🌸 Open When… 🌸</h1>
 <h2 id="countdown"></h2>
@@ -66,64 +58,171 @@ button:hover { background:#f06292; transform:scale(1.05); }
 <div class="cardContainer"><div class="card" onclick="openModal('rainyModal')">☔ It’s a Rainy Day</div></div>
 <div class="cardContainer"><div class="card" onclick="openModal('missMeModal')">💌 You Miss Me</div></div>
 <div class="cardContainer"><div class="card" onclick="openModal('forgetMeModal')">🖼 You Forget What I Look Like</div></div>
+<div class="cardContainer"><div class="card" onclick="openModal('memoryQuizModal')">🎮 Bestie Memory Quiz</div></div>
 <div class="cardContainer"><div class="card" onclick="toggleNight()">🌙 Toggle Night Mode</div></div>
 
 <!-- MODALS -->
-<!-- Example Modal -->
+<!-- Birthday -->
 <div id="birthdayModal" class="modal">
   <div class="modalContent">
     <span class="close" onclick="closeModal('birthdayModal')">&times;</span>
     <h2>HAPPY BIRTHDAY! 💖</h2>
-    <div class="gallery">
-      <img src="bestie_photo.jpg" alt="Birthday Photo">
-      <img src="birthday_cake.jpg" alt="Cake">
-    </div>
+    <div class="gallery"><img src="bestie_photo.jpg" alt="Birthday"><img src="birthday_cake.jpg" alt="Cake"></div>
     <p>Confetti! 🎉 You are amazing!</p>
     <button onclick="confettiBlast()">Celebrate 🎊</button>
   </div>
 </div>
 
+<!-- Hug -->
 <div id="hugModal" class="modal">
   <div class="modalContent">
     <span class="close" onclick="closeModal('hugModal')">&times;</span>
-    <div class="gallery">
-      <img src="teddy_bear.jpg" alt="Teddy Bear">
-      <img src="hug_photo.jpg" alt="Hug Photo">
-    </div>
-    <p>Sending a big hug 🤗💖</p>
+    <div class="gallery"><img src="teddy_bear.jpg" alt="Teddy"><img src="hug_photo.jpg" alt="Hug"></div>
+    <p>Sending you a big hug 🤗💖</p>
   </div>
 </div>
 
-<!-- Homesick Modal -->
+<!-- Homesick -->
 <div id="homesickModal" class="modal">
   <div class="modalContent">
     <span class="close" onclick="closeModal('homesickModal')">&times;</span>
     <p>People who love you:</p>
     <ul><li>Me 💕</li><li>Mom</li><li>Dad</li></ul>
-    <div class="gallery">
-      <img src="favorite_memory.jpg" alt="Memory">
-      <img src="photo1.jpg" alt="Photo">
-    </div>
+    <div class="gallery"><img src="favorite_memory.jpg" alt="Memory"><img src="photo1.jpg" alt="Photo"></div>
   </div>
 </div>
 
-<!-- Add similar modals for all other cards -->
+<!-- Stressed -->
+<div id="stressedModal" class="modal">
+  <div class="modalContent">
+    <span class="close" onclick="closeModal('stressedModal')">&times;</span>
+    <div class="gallery"><img src="tea_bag.jpg" alt="Tea"><img src="stress_ball.jpg" alt="Stress Ball"></div>
+    <p>Breathe… you’ve got this 🌸</p>
+  </div>
+</div>
+
+<!-- Motivation -->
+<div id="motivationModal" class="modal">
+  <div class="modalContent">
+    <span class="close" onclick="closeModal('motivationModal')">&times;</span>
+    <p>Remember your accomplishments! 💪</p>
+    <ul><li>Graduated 🎓</li><li>Learned to cook 🍳</li><li>Survived 2025 😎</li></ul>
+    <p>"You are stronger than you think!"</p>
+  </div>
+</div>
+
+<!-- Sick -->
+<div id="sickModal" class="modal">
+  <div class="modalContent">
+    <span class="close" onclick="closeModal('sickModal')">&times;</span>
+    <div class="gallery"><img src="tea_bag.jpg" alt="Tea"><img src="cough_drops.jpg" alt="Cough"></div>
+    <p>Feel better soon! 💖</p>
+  </div>
+</div>
+
+<!-- Mad -->
+<div id="madModal" class="modal">
+  <div class="modalContent">
+    <span class="close" onclick="closeModal('madModal')">&times;</span>
+    <p>Hey… I’m sorry 😌💖</p>
+    <p>Reasons I love you:</p>
+    <ul><li>Your smile 😊</li><li>Our adventures 🎉</li><li>Inside jokes 😂</li></ul>
+  </div>
+</div>
+
+<!-- Can't Sleep -->
+<div id="cantSleepModal" class="modal">
+  <div class="modalContent">
+    <span class="close" onclick="closeModal('cantSleepModal')">&times;</span>
+    <div class="gallery"><img src="relaxing_tea.jpg" alt="Tea"><img src="poem.jpg" alt="Poem"></div>
+    <p>Relax and rest easy 🌙</p>
+  </div>
+</div>
+
+<!-- Laugh -->
+<div id="laughModal" class="modal">
+  <div class="modalContent">
+    <span class="close" onclick="closeModal('laughModal')">&times;</span>
+    <div class="gallery"><img src="funny_meme1.jpg" alt="Meme1"><img src="funny_meme2.jpg" alt="Meme2"></div>
+    <p>😂 Hope this made you laugh!</p>
+  </div>
+</div>
+
+<!-- Milestone -->
+<div id="milestoneModal" class="modal">
+  <div class="modalContent">
+    <span class="close" onclick="closeModal('milestoneModal')">&times;</span>
+    <p>Congrats on your achievement! 🎉</p>
+    <button onclick="confettiBlast()">Celebrate 🎊</button>
+  </div>
+</div>
+
+<!-- Holiday -->
+<div id="holidayModal" class="modal">
+  <div class="modalContent">
+    <span class="close" onclick="closeModal('holidayModal')">&times;</span>
+    <p>Happy special day! 💖</p>
+    <div class="gallery"><img src="holiday_card.jpg" alt="Holiday"></div>
+  </div>
+</div>
+
+<!-- Bored -->
+<div id="boredModal" class="modal">
+  <div class="modalContent">
+    <span class="close" onclick="closeModal('boredModal')">&times;</span>
+    <p>Cozy activities or movies:</p>
+    <ul><li>Watch a movie 🎬</li><li>Puzzle 🧩</li><li>Listen to music 🎵</li></ul>
+  </div>
+</div>
+
+<!-- Rainy -->
+<div id="rainyModal" class="modal">
+  <div class="modalContent">
+    <span class="close" onclick="closeModal('rainyModal')">&times;</span>
+    <p>Perfect rainy day ideas 🌧️:</p>
+    <ul><li>Read a book 📖</li><li>Watch a movie 🎬</li><li>Hot chocolate ☕</li></ul>
+  </div>
+</div>
+
+<!-- Miss Me -->
+<div id="missMeModal" class="modal">
+  <div class="modalContent">
+    <span class="close" onclick="closeModal('missMeModal')">&times;</span>
+    <div class="gallery"><img src="framed_photo.jpg" alt="Framed"></div>
+    <p>Wish I was there 💖</p>
+  </div>
+</div>
+
+<!-- Forget Me -->
+<div id="forgetMeModal" class="modal">
+  <div class="modalContent">
+    <span class="close" onclick="closeModal('forgetMeModal')">&times;</span>
+    <div class="gallery"><img src="selfie.jpg" alt="Selfie"><img src="recent_photo.jpg" alt="Photo"></div>
+    <p>Here’s a recent photo 😘</p>
+  </div>
+</div>
+
+<!-- Memory Quiz -->
+<div id="memoryQuizModal" class="modal">
+  <div class="modalContent">
+    <span class="close" onclick="closeModal('memoryQuizModal')">&times;</span>
+    <p>🎮 Bestie Memory Quiz!</p>
+    <ol>
+      <li>Where did we first meet? 🤔</li>
+      <li>Favorite inside joke? 😂</li>
+      <li>Most epic adventure? 🌟</li>
+    </ol>
+  </div>
+</div>
 
 <!-- AUDIO -->
 <audio id="song" src="song.mp3"></audio>
 
 <script>
-// MODAL
 function openModal(id){document.getElementById(id).style.display="block";}
 function closeModal(id){document.getElementById(id).style.display="none";}
-
-// CONFETTI
 function confettiBlast(){ confetti({particleCount:200, spread:80, colors:['#f8bbd0','#fce4ec','#c8e6c9']});}
-
-// NIGHT MODE
 function toggleNight(){document.body.classList.toggle('night');}
-
-// COUNTDOWN
 const birthday=new Date("2026-03-01");
 setInterval(()=>{
   const now=new Date();
@@ -139,3 +238,4 @@ setInterval(()=>{
 <img class="lily" src="lily3.png" style="left:80%;">
 </body>
 </html>
+
