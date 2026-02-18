@@ -95,28 +95,13 @@ button:hover {
   background: #f06292;
   transform: scale(1.05);
 }
-input {
-  padding: 10px;
-  border-radius: 10px;
-  border: 1px solid #880e4f;
-  width: 200px;
-  font-size: 16px;
-}
 </style>
 </head>
 
 <body>
 
-<!-- PASSWORD SCREEN -->
-<div id="loginScreen">
-  <h1>🔐 Enter Our Inside Joke</h1>
-  <input type="password" id="password" placeholder="Your password">
-  <br><br>
-  <button onclick="checkPassword()">Unlock</button>
-</div>
-
 <!-- MAIN CONTENT -->
-<div id="mainContent" class="hidden">
+<div id="mainContent">
 
   <h1>🌸 Open When… 🌸</h1>
 
@@ -201,17 +186,6 @@ input {
 </div>
 
 <script>
-// PASSWORD CHECK
-function checkPassword() {
-  const pass = document.getElementById("password").value;
-  if(pass === "blen") { // your inside-joke password
-    document.getElementById("loginScreen").classList.add("hidden");
-    document.getElementById("mainContent").classList.remove("hidden");
-  } else {
-    alert("Wrong bestie. Try again 😌");
-  }
-}
-
 // TOGGLE SECTIONS
 function toggleSection(id) {
   document.getElementById(id).classList.toggle("hidden");
