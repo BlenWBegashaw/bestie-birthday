@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Bestie Birthday 🌸</title>
+
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Poppins&display=swap" rel="stylesheet">
+
+<!-- Confetti -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<style>
+/* BODY */
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  text-align: center;
+  background: linear-gradient(135deg, #fce4ec, #f8bbd0);
+  overflow-x: hidden;
+  color: #880e4f;
+  position: relative;
+  transition: 0.5s;
+}
+
+/* NIGHT MODE */
+body.night {
+  background: linear-gradient(135deg, #1e1e2f, #3a3a6a);
+  color: #eee;
+}
+
+/* Floating lilies */
+.lily {
+  position: absolute;
+  width: 50px;
+  opacity: 0.7;
+  animation: floatLily 20s linear infinite;
+}
+@keyframes floatLily {
+  0% { transform: translateY(100vh) rotate(0deg); }
+  100% { transform: translateY(-100px) rotate(360deg); }
+}
+
+/* Titles */
+h1 {
+  font-family: 'Dancing Script', cursive;
+  font-size: 3em;
+  margin-top: 40px;
+}
+
+/* Cards */
+.card {
+  background: rgba(255,255,255,0.8);
+  padding: 20px;
+  margin: 20px auto;
+  border-radius: 20px;
+  width: 300px;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(136, 14, 79, 0.3);
+  transition: 0.3s;
+}
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 30px rgba(136, 14, 79, 0.5);
+}
+
+/* Hidden sections */
+.hidden { display: none; }
+
+/* Gallery grid */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 10px;
+  padding: 20px;
+}
+.gallery img, .gallery video {
+  width: 100%;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(136,14,79,0.2);
+}
+
+/* Buttons */
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  background: #f48fb1;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  margin: 10px;
+}
+button:hover {
+  background: #f06292;
+  transform: scale(1.05);
+}
+</style>
+</head>
+
+<body>
+
+<!-- PASSWORD SCREEN -->
+<div id="loginScreen">
+  <h1>🔐 Enter Our Inside Joke</h1>
+  <input type="password" id="password" placeholder="Your password">
+  <br><br>
+  <button onclick="checkPassword()">Unlock</button>
+</div>
+
+<!-- MAIN CONTENT -->
+<div id="mainContent" class="hidden">
+
+  <h1>🌸 Open When… 🌸</h1>
+
+  <!-- CARDS -->
+  <div class="card" onclick="openBirthday()">
+    🎂 Open When It’s Your Birthday
+  </div>
+
+  <div class="card" onclick="toggleSection('chaosGallery')">
+    📸 Open When You Miss Our Chaos
+  </div>
+
+  <div class="card" onclick="toggleSection('funnyVideos')">
+    🎥 Open When You Need To Laugh
+  </div>
+
+  <div class="card" onclick="playSong()">
+    🎵 Open When You Need Our Song
+  </div>
+
+  <div class="card" onclick="toggleSection('memoryQuiz')">
+    🎮 Bestie Memory Quiz
+  </div>
+
+  <div class="card" onclick="toggleNight()">
+    🌙 Toggle Night Mode
+  </div>
+
+  <div class="card" onclick="toggleSection('mallMemories')">
+    🛍 Open When We Go To The Mall
+  </div>
+
+  <div class="card" onclick="toggleSection('emotional')">
+    🥺 Open When You Feel Alone
+  </div>
+
+  <h2 id="countdown"></h2>
+
+  <!-- BIRTHDAY MESSAGE -->
+  <div id="birthdayMessage" class="hidden">
+    <h2>HAPPY BIRTHDAY 💖</h2>
+    <p>You are the most amazing human and my favorite chaos partner! 🎉</p>
+    <img src="bestie_photo.jpg" alt="Us together">
+  </div>
+
+  <!-- CHAOS GALLERY -->
+  <div id="chaosGallery" class="hidden gallery">
+    <img src="photo1.jpg">
+    <img src="photo2.jpg">
+    <img src="photo3.jpg">
+  </div>
+
+  <!-- FUNNY VIDEOS -->
+  <div id="funnyVideos" class="hidden gallery">
+    <video controls src="video1.mp4"></video>
+    <video controls src="video2.mp4"></video>
+  </div>
+
+  <!-- MALL MEMORIES -->
+  <div id="mallMemories" class="hidden gallery">
+    <img src="mall1.jpg">
+    <video controls src="mallvideo.mp4"></video>
+  </div>
+
+  <!-- EMOTIONAL SECTION -->
+  <div id="emotional" class="hidden">
+    <p>Hey… I know things feel heavy sometimes, but you are my sunshine 🌸</p>
+    <img src="softphoto.jpg">
+  </div>
+
+  <!-- MEMORY QUIZ -->
+  <div id="memoryQuiz" class="hidden">
+    <h2>Memory Quiz 🎮</h2>
+    <p>Where did we first meet?</p>
+    <button onclick="alert('Correct 😌')">School</button>
+    <button onclick="alert('WRONG. Fake bestie.')">Mars</button>
+  </div>
+
+  <!-- AUDIO -->
+  <audio id="song" src="song.mp3"></audio>
+
+</div>
+
+<script>
+// PASSWORD CHECK
+function checkPassword() {
+  const pass = document.getElementById("password").value;
+  if(pass === "pineapple123") { // CHANGE TO YOUR INSIDE JOKE
+    document.getElementById("loginScreen").classList.add("hidden");
+    document.getElementById("mainContent").classList.remove("hidden");
+  } else {
+    alert("Wrong bestie. Try again 😌");
+  }
+}
+
+// TOGGLE SECTIONS
+function toggleSection(id) {
+  document.getElementById(id).classList.toggle("hidden");
+}
+
+// BIRTHDAY CONFETTI
+function openBirthday() {
+  document.getElementById("birthdayMessage").classList.toggle("hidden");
+  confetti({
+    particleCount: 150,
+    spread: 70,
+    colors: ['#f8bbd0', '#fce4ec', '#c8e6c9']
+  });
+}
+
+// PLAY SONG
+function playSong() {
+  document.getElementById("song").play();
+}
+
+// NIGHT MODE
+function toggleNight() {
+  document.body.classList.toggle("night");
+}
+
+// COUNTDOWN
+const birthday = new Date("2026-03-01"); // CHANGE DATE
+setInterval(() => {
+  const now = new Date();
+  const diff = birthday - now;
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  document.getElementById("countdown").innerText =
+    "Countdown: " + days + " days 💖";
+}, 1000);
+</script>
+
+<!-- FLOATING LILIES -->
+<img class="lily" src="lily1.png" style="left:10%;">
+<img class="lily" src="lily2.png" style="left:50%;">
+<img class="lily" src="lily3.png" style="left:80%;">
+
+</body>
+</html>
