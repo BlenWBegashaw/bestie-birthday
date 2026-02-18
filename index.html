@@ -4,295 +4,138 @@
 <meta charset="UTF-8">
 <title>Bestie Birthday 🌸 Open When</title>
 
-<!-- Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Poppins&display=swap" rel="stylesheet">
-
-<!-- Confetti -->
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
 <style>
 body {
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
-  text-align: center;
-  background: linear-gradient(135deg, #fce4ec, #f8bbd0);
-  overflow-x: hidden;
-  color: #880e4f;
-  position: relative;
-  transition: 0.5s;
+  margin:0;
+  font-family:'Poppins',sans-serif;
+  background:linear-gradient(135deg,#fce4ec,#f8bbd0);
+  color:#880e4f;
+  transition:.5s;
+  overflow-x:hidden;
+  text-align:center;
 }
+body.night { background:linear-gradient(135deg,#1e1e2f,#3a3a6a); color:#eee; }
+h1 { font-family:'Dancing Script',cursive; font-size:3em; margin-top:40px; }
+h2#countdown { margin-top:10px; }
 
-body.night {
-  background: linear-gradient(135deg, #1e1e2f, #3a3a6a);
-  color: #eee;
-}
+/* CARD LIST */
+.cardContainer { width:90%; max-width:500px; margin:15px auto; }
+.card { background:rgba(255,255,255,0.85); padding:20px; border-radius:20px; cursor:pointer; box-shadow:0 8px 20px rgba(136,14,79,0.3); transition:.3s; }
+.card:hover { transform:scale(1.03); box-shadow:0 12px 30px rgba(136,14,79,0.5); }
 
-.lily {
-  position: absolute;
-  width: 50px;
-  opacity: 0.7;
-  animation: floatLily 20s linear infinite;
-}
-@keyframes floatLily {
-  0% { transform: translateY(100vh) rotate(0deg); }
-  100% { transform: translateY(-100px) rotate(360deg); }
-}
+/* MODAL */
+.modal { display:none; position:fixed; z-index:999; left:0;top:0;width:100%;height:100%;overflow:auto; background:rgba(0,0,0,0.7);}
+.modalContent { background:linear-gradient(135deg,#fce4ec,#f8bbd0); margin:5% auto; padding:30px; border-radius:20px; width:80%; max-width:600px; text-align:center; position:relative; }
+.modalContent img, .modalContent video { width:100%; border-radius:15px; margin-bottom:15px; }
+.modalContent .gallery { display:flex; overflow-x:auto; gap:10px; padding:10px 0; }
+.modalContent .gallery img, .modalContent .gallery video { flex:0 0 auto; width:150px; height:100px; object-fit:cover; }
 
-h1 {
-  font-family: 'Dancing Script', cursive;
-  font-size: 3em;
-  margin-top: 40px;
-}
+/* CLOSE BUTTON */
+.close { position:absolute; top:15px; right:20px; font-size:30px; font-weight:bold; cursor:pointer; }
 
-/* CARD STYLING */
-.cardContainer {
-  position: relative;
-  width: 90%;
-  max-width: 500px;
-  margin: 20px auto;
-}
+/* BUTTONS */
+button { padding:10px 20px; border:none; border-radius:20px; background:#f48fb1; color:white; cursor:pointer; font-weight:bold; margin:10px 0; }
+button:hover { background:#f06292; transform:scale(1.05); }
 
-.card {
-  background: rgba(255,255,255,0.85);
-  padding: 20px;
-  border-radius: 20px;
-  cursor: pointer;
-  box-shadow: 0 8px 20px rgba(136, 14, 79, 0.3);
-  transition: 0.3s;
-}
-.card:hover {
-  transform: scale(1.03);
-  box-shadow: 0 12px 30px rgba(136, 14, 79, 0.5);
-}
-
-.cardContent {
-  margin-top: 15px;
-  display: none;
-  transition: all 0.4s ease;
-  text-align: center;
-}
-
-.cardContent.show {
-  display: block;
-}
-
-.cardContent img, .cardContent video {
-  width: 100%;
-  border-radius: 15px;
-  box-shadow: 0 4px 10px rgba(136,14,79,0.2);
-  margin-bottom: 10px;
-}
-
-button {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 20px;
-  background: #f48fb1;
-  color: white;
-  cursor: pointer;
-  font-weight: bold;
-  margin: 10px 0;
-}
-button:hover {
-  background: #f06292;
-  transform: scale(1.05);
-}
+/* FLOATING LILIES */
+.lily { position:absolute; width:50px; opacity:.7; animation:floatLily 20s linear infinite; }
+@keyframes floatLily { 0%{transform:translateY(100vh) rotate(0deg);} 100%{transform:translateY(-100px) rotate(360deg);} }
 </style>
 </head>
 
 <body>
-
 <h1>🌸 Open When… 🌸</h1>
 <h2 id="countdown"></h2>
 
-<!-- CARD CONTAINERS -->
-<div class="cardContainer">
-  <div class="card" onclick="toggleContent('birthdayContent')">🎂 It’s Your Birthday</div>
-  <div id="birthdayContent" class="cardContent">
+<!-- CARD LIST -->
+<div class="cardContainer"><div class="card" onclick="openModal('birthdayModal')">🎂 It’s Your Birthday</div></div>
+<div class="cardContainer"><div class="card" onclick="openModal('hugModal')">🤗 You Need a Hug</div></div>
+<div class="cardContainer"><div class="card" onclick="openModal('homesickModal')">🏠 You Feel Homesick / Lonely</div></div>
+<div class="cardContainer"><div class="card" onclick="openModal('stressedModal')">😩 You Are Overwhelmed / Stressed</div></div>
+<div class="cardContainer"><div class="card" onclick="openModal('motivationModal')">💪 You Need Motivation</div></div>
+<div class="cardContainer"><div class="card" onclick="openModal('sickModal')">🤒 You Are Sick</div></div>
+<div class="cardContainer"><div class="card" onclick="openModal('madModal')">😡 We Are Fighting / You Are Mad</div></div>
+<div class="cardContainer"><div class="card" onclick="openModal('cantSleepModal')">🌙 You Can't Sleep</div></div>
+<div class="cardContainer"><div class="card" onclick="openModal('laughModal')">😂 You Need a Laugh</div></div>
+<div class="cardContainer"><div class="card" onclick="openModal('milestoneModal')">🎉 You Accomplished Something</div></div>
+<div class="cardContainer"><div class="card" onclick="openModal('holidayModal')">🎁 Holiday / Anniversary</div></div>
+<div class="cardContainer"><div class="card" onclick="openModal('boredModal')">😴 You Are Bored</div></div>
+<div class="cardContainer"><div class="card" onclick="openModal('rainyModal')">☔ It’s a Rainy Day</div></div>
+<div class="cardContainer"><div class="card" onclick="openModal('missMeModal')">💌 You Miss Me</div></div>
+<div class="cardContainer"><div class="card" onclick="openModal('forgetMeModal')">🖼 You Forget What I Look Like</div></div>
+<div class="cardContainer"><div class="card" onclick="toggleNight()">🌙 Toggle Night Mode</div></div>
+
+<!-- MODALS -->
+<!-- Example Modal -->
+<div id="birthdayModal" class="modal">
+  <div class="modalContent">
+    <span class="close" onclick="closeModal('birthdayModal')">&times;</span>
     <h2>HAPPY BIRTHDAY! 💖</h2>
-    <img src="bestie_photo.jpg" alt="Birthday Photo">
+    <div class="gallery">
+      <img src="bestie_photo.jpg" alt="Birthday Photo">
+      <img src="birthday_cake.jpg" alt="Cake">
+    </div>
     <p>Confetti! 🎉 You are amazing!</p>
     <button onclick="confettiBlast()">Celebrate 🎊</button>
   </div>
 </div>
 
-<div class="cardContainer">
-  <div class="card" onclick="toggleContent('needHugContent')">🤗 You Need a Hug</div>
-  <div id="needHugContent" class="cardContent">
-    <img src="teddy_bear.jpg" alt="Teddy Bear Hug">
-    <p>Sending you a virtual hug 💖</p>
+<div id="hugModal" class="modal">
+  <div class="modalContent">
+    <span class="close" onclick="closeModal('hugModal')">&times;</span>
+    <div class="gallery">
+      <img src="teddy_bear.jpg" alt="Teddy Bear">
+      <img src="hug_photo.jpg" alt="Hug Photo">
+    </div>
+    <p>Sending a big hug 🤗💖</p>
   </div>
 </div>
 
-<div class="cardContainer">
-  <div class="card" onclick="toggleContent('homesickContent')">🏠 You Feel Homesick / Lonely</div>
-  <div id="homesickContent" class="cardContent">
+<!-- Homesick Modal -->
+<div id="homesickModal" class="modal">
+  <div class="modalContent">
+    <span class="close" onclick="closeModal('homesickModal')">&times;</span>
     <p>People who love you:</p>
-    <ul>
-      <li>Me 💕</li>
-      <li>Mom</li>
-      <li>Dad</li>
-    </ul>
-    <img src="favorite_memory.jpg" alt="Favorite Memory">
+    <ul><li>Me 💕</li><li>Mom</li><li>Dad</li></ul>
+    <div class="gallery">
+      <img src="favorite_memory.jpg" alt="Memory">
+      <img src="photo1.jpg" alt="Photo">
+    </div>
   </div>
 </div>
 
-<div class="cardContainer">
-  <div class="card" onclick="toggleContent('stressedContent')">😩 You Are Overwhelmed / Stressed</div>
-  <div id="stressedContent" class="cardContent">
-    <img src="tea_bag.jpg" alt="Tea Bag">
-    <img src="stress_ball.jpg" alt="Stress Ball">
-    <p>Take a deep breath, you’ve got this! 🌸</p>
-  </div>
-</div>
-
-<div class="cardContainer">
-  <div class="card" onclick="toggleContent('motivationContent')">💪 You Need Motivation</div>
-  <div id="motivationContent" class="cardContent">
-    <p>Remember all you’ve accomplished! 💪</p>
-    <ul>
-      <li>Graduated 🎓</li>
-      <li>Learned to cook 🍳</li>
-      <li>Survived 2025 😎</li>
-    </ul>
-    <p>“You are stronger than you think!”</p>
-  </div>
-</div>
-
-<div class="cardContainer">
-  <div class="card" onclick="toggleContent('sickContent')">🤒 You Are Sick</div>
-  <div id="sickContent" class="cardContent">
-    <img src="tea_bag.jpg" alt="Tea Bag">
-    <img src="cough_drops.jpg" alt="Cough Drops">
-    <p>Feel better soon! 💖</p>
-  </div>
-</div>
-
-<div class="cardContainer">
-  <div class="card" onclick="toggleContent('madContent')">😡 We Are Fighting / You Are Mad at Me</div>
-  <div id="madContent" class="cardContent">
-    <p>Hey… I’m sorry 😌💖</p>
-    <p>Here’s why I love you:</p>
-    <ul>
-      <li>Your smile 😊</li>
-      <li>Our chaos adventures 🎉</li>
-      <li>All the inside jokes 😂</li>
-    </ul>
-  </div>
-</div>
-
-<div class="cardContainer">
-  <div class="card" onclick="toggleContent('cantSleepContent')">🌙 You Can't Sleep</div>
-  <div id="cantSleepContent" class="cardContent">
-    <img src="relaxing_tea.jpg" alt="Relaxing Tea">
-    <p>Read this poem and rest easy… 🌙</p>
-  </div>
-</div>
-
-<div class="cardContainer">
-  <div class="card" onclick="toggleContent('laughContent')">😂 You Need a Laugh</div>
-  <div id="laughContent" class="cardContent">
-    <img src="funny_meme1.jpg" alt="Meme 1">
-    <img src="funny_meme2.jpg" alt="Meme 2">
-    <p>😂 Hope this made you laugh!</p>
-  </div>
-</div>
-
-<div class="cardContainer">
-  <div class="card" onclick="toggleContent('milestoneContent')">🎉 You Accomplished Something</div>
-  <div id="milestoneContent" class="cardContent">
-    <p>Congrats! 🎉 You did it!</p>
-    <button onclick="confettiBlast()">Celebrate 🎊</button>
-  </div>
-</div>
-
-<div class="cardContainer">
-  <div class="card" onclick="toggleContent('holidayContent')">🎁 Holiday / Anniversary</div>
-  <div id="holidayContent" class="cardContent">
-    <p>Happy special day! 💖</p>
-    <img src="holiday_card.jpg" alt="Holiday Card">
-  </div>
-</div>
-
-<div class="cardContainer">
-  <div class="card" onclick="toggleContent('boredContent')">😴 You Are Bored</div>
-  <div id="boredContent" class="cardContent">
-    <p>Cozy activities or movies to watch:</p>
-    <ul>
-      <li>Watch a movie 🎬</li>
-      <li>Try a puzzle 🧩</li>
-      <li>Listen to music 🎵</li>
-    </ul>
-  </div>
-</div>
-
-<div class="cardContainer">
-  <div class="card" onclick="toggleContent('rainyContent')">☔ It’s a Rainy Day</div>
-  <div id="rainyContent" class="cardContent">
-    <p>Perfect rainy day ideas 🌧️:</p>
-    <ul>
-      <li>Read a book 📖</li>
-      <li>Watch a cozy movie 🎬</li>
-      <li>Drink hot chocolate ☕</li>
-    </ul>
-  </div>
-</div>
-
-<div class="cardContainer">
-  <div class="card" onclick="toggleContent('missMeContent')">💌 You Miss Me</div>
-  <div id="missMeContent" class="cardContent">
-    <img src="framed_photo.jpg" alt="Framed Photo">
-    <p>Wish I was there with you 💖</p>
-  </div>
-</div>
-
-<div class="cardContainer">
-  <div class="card" onclick="toggleContent('forgetMeContent')">🖼 You Forget What I Look Like</div>
-  <div id="forgetMeContent" class="cardContent">
-    <img src="selfie.jpg" alt="Recent Selfie">
-    <p>Here’s a recent photo so you don’t forget me! 😘</p>
-  </div>
-</div>
-
-<div class="cardContainer">
-  <div class="card" onclick="toggleNight()">🌙 Toggle Night Mode</div>
-</div>
+<!-- Add similar modals for all other cards -->
 
 <!-- AUDIO -->
 <audio id="song" src="song.mp3"></audio>
 
 <script>
-// TOGGLE CARD CONTENT
-function toggleContent(id) {
-  const el = document.getElementById(id);
-  el.classList.toggle('show');
-}
+// MODAL
+function openModal(id){document.getElementById(id).style.display="block";}
+function closeModal(id){document.getElementById(id).style.display="none";}
 
 // CONFETTI
-function confettiBlast() {
-  confetti({ particleCount: 200, spread: 80, colors: ['#f8bbd0','#fce4ec','#c8e6c9'] });
-}
-
-// PLAY SONG
-function playSong() { document.getElementById('song').play(); }
+function confettiBlast(){ confetti({particleCount:200, spread:80, colors:['#f8bbd0','#fce4ec','#c8e6c9']});}
 
 // NIGHT MODE
-function toggleNight() { document.body.classList.toggle('night'); }
+function toggleNight(){document.body.classList.toggle('night');}
 
 // COUNTDOWN
-const birthday = new Date("2026-03-01"); // CHANGE DATE
-setInterval(() => {
-  const now = new Date();
-  const diff = birthday - now;
-  const days = Math.floor(diff / (1000*60*60*24));
-  document.getElementById("countdown").innerText = "Countdown: " + days + " days 💖";
-}, 1000);
+const birthday=new Date("2026-03-01");
+setInterval(()=>{
+  const now=new Date();
+  const diff=birthday-now;
+  const days=Math.floor(diff/(1000*60*60*24));
+  document.getElementById("countdown").innerText="Countdown: "+days+" days 💖";
+},1000);
 </script>
 
 <!-- FLOATING LILIES -->
 <img class="lily" src="lily1.png" style="left:10%;">
 <img class="lily" src="lily2.png" style="left:50%;">
 <img class="lily" src="lily3.png" style="left:80%;">
-
 </body>
 </html>
