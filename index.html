@@ -1,241 +1,296 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Bestie Birthday 🌸 Open When</title>
-<link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Poppins&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-<style>
-body {
-  margin:0; font-family:'Poppins',sans-serif; background:linear-gradient(135deg,#fce4ec,#f8bbd0);
-  color:#880e4f; transition:.5s; overflow-x:hidden; text-align:center;
-}
-body.night { background:linear-gradient(135deg,#1e1e2f,#3a3a6a); color:#eee; }
-h1 { font-family:'Dancing Script',cursive; font-size:3em; margin-top:40px; }
-h2#countdown { margin-top:10px; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Open When – Gift Cards for Bestie</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: #fff0f5 url('images/pink_lilies_bg.jpg') no-repeat center top;
+      background-size: cover;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
 
-/* CARD LIST */
-.cardContainer { width:90%; max-width:500px; margin:15px auto; }
-.card { background:rgba(255,255,255,0.85); padding:20px; border-radius:20px; cursor:pointer; box-shadow:0 8px 20px rgba(136,14,79,0.3); transition:.3s; }
-.card:hover { transform:scale(1.03); box-shadow:0 12px 30px rgba(136,14,79,0.5); }
+    h1 {
+      text-align: center;
+      margin: 2rem 0;
+      color: #ff69b4;
+    }
 
-/* MODAL */
-.modal { display:none; position:fixed; z-index:999; left:0;top:0;width:100%;height:100%;overflow:auto; background:rgba(0,0,0,0.7);}
-.modalContent { background:linear-gradient(135deg,#fce4ec,#f8bbd0); margin:5% auto; padding:30px; border-radius:20px; width:80%; max-width:600px; text-align:center; position:relative; }
-.modalContent img, .modalContent video { width:100%; border-radius:15px; margin-bottom:15px; }
-.modalContent .gallery { display:flex; overflow-x:auto; gap:10px; padding:10px 0; }
-.modalContent .gallery img, .modalContent .gallery video { flex:0 0 auto; width:150px; height:100px; object-fit:cover; }
+    .cards {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      padding: 1rem;
+    }
 
-/* CLOSE BUTTON */
-.close { position:absolute; top:15px; right:20px; font-size:30px; font-weight:bold; cursor:pointer; }
+    .card-button {
+      background: #ffe4f0;
+      border: 2px solid #ff69b4;
+      border-radius: 15px;
+      padding: 1rem 2rem;
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: 0.2s;
+      text-align: center;
+      width: 200px;
+    }
 
-/* BUTTONS */
-button { padding:10px 20px; border:none; border-radius:20px; background:#f48fb1; color:white; cursor:pointer; font-weight:bold; margin:10px 0; }
-button:hover { background:#f06292; transform:scale(1.05); }
+    .card-button:hover {
+      background: #ffb6c1;
+      transform: scale(1.05);
+    }
 
-/* FLOATING LILIES */
-.lily { position:absolute; width:50px; opacity:.7; animation:floatLily 20s linear infinite; }
-@keyframes floatLily { 0%{transform:translateY(100vh) rotate(0deg);} 100%{transform:translateY(-100px) rotate(360deg);} }
-</style>
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 100;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background: rgba(0,0,0,0.6);
+    }
+
+    .modalContent {
+      background: #fff0f5;
+      margin: 10% auto;
+      padding: 2rem;
+      border: 3px solid #ff69b4;
+      border-radius: 20px;
+      width: 90%;
+      max-width: 500px;
+      text-align: center;
+      position: relative;
+    }
+
+    .modalContent img {
+      width: 80%;
+      max-width: 300px;
+      margin: 1rem 0;
+      border-radius: 10px;
+    }
+
+    .close {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #ff69b4;
+    }
+
+    button.redeem {
+      background: #ff69b4;
+      border: none;
+      border-radius: 10px;
+      padding: 0.5rem 1rem;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 1rem;
+      transition: 0.2s;
+    }
+
+    button.redeem:hover {
+      background: #ff1493;
+      transform: scale(1.05);
+    }
+  </style>
 </head>
 <body>
-<h1>🌸 Open When… 🌸</h1>
-<h2 id="countdown"></h2>
+  <h1>💌 Open When – Gift Cards for My Bestie 💌</h1>
 
-<!-- CARD LIST -->
-<div class="cardContainer"><div class="card" onclick="openModal('birthdayModal')">It’s Your Birthday</div></div>
-<div class="cardContainer"><div class="card" onclick="openModal('hugModal')">You Need a Hug</div></div>
-<div class="cardContainer"><div class="card" onclick="openModal('homesickModal')">You Feel Homesick / Lonely</div></div>
-<div class="cardContainer"><div class="card" onclick="openModal('stressedModal')">You Are Overwhelmed / Stressed</div></div>
-<div class="cardContainer"><div class="card" onclick="openModal('motivationModal')">You Need Motivation</div></div>
-<div class="cardContainer"><div class="card" onclick="openModal('sickModal')">You Are Sick</div></div>
-<div class="cardContainer"><div class="card" onclick="openModal('madModal')"> We Are Fighting </div></div>
-<div class="cardContainer"><div class="card" onclick="openModal('cantSleepModal')"> You Can't Sleep</div></div>
-<div class="cardContainer"><div class="card" onclick="openModal('laughModal')"> You Need a Laugh</div></div>
-<div class="cardContainer"><div class="card" onclick="openModal('milestoneModal')"> You Accomplished Something</div></div>
-<div class="cardContainer"><div class="card" onclick="openModal('holidayModal')"> Holiday / Anniversary</div></div>
-<div class="cardContainer"><div class="card" onclick="openModal('boredModal')"> You Are Bored</div></div>
-<div class="cardContainer"><div class="card" onclick="openModal('rainyModal')"> It’s a Rainy Day</div></div>
-<div class="cardContainer"><div class="card" onclick="openModal('missMeModal')"> You Miss Me</div></div>
-<div class="cardContainer"><div class="card" onclick="openModal('forgetMeModal')"> You are graduting </div></div>
-<div class="cardContainer"><div class="card" onclick="openModal('memoryQuizModal')">🎮 Bestie Memory Quiz</div></div>
-<div class="cardContainer"><div class="card" onclick="toggleNight()">🌙 Toggle Night Mode</div></div>
-
-<!-- MODALS -->
-<!-- Birthday -->
-<div id="birthdayModal" class="modal">
-  <div class="modalContent">
-    <span class="close" onclick="closeModal('birthdayModal')">&times;</span>
-    <h2>HAPPY BIRTHDAY! 💖</h2>
-    <div class="gallery"><img src="bestie_photo.jpg" alt="Birthday"><img src="birthday_cake.jpg" alt="Cake"></div>
-    <p>Confetti! 🎉 You are amazing!</p>
-    <button onclick="confettiBlast()">Celebrate 🎊</button>
+  <div class="cards">
+    <div class="card-button" onclick="openModal('birthdayModal')">🎂 Birthday</div>
+    <div class="card-button" onclick="openModal('treatModal')">💅 Treat Yourself</div>
+    <div class="card-button" onclick="openModal('cozyModal')">☕ Cozy / Rainy Day</div>
+    <div class="card-button" onclick="openModal('sweetModal')">🍬 Sweet Surprise</div>
+    <div class="card-button" onclick="openModal('hugModal')">🤗 Hug / Love</div>
+    <div class="card-button" onclick="openModal('missMeModal')">💌 Miss Me</div>
+    <div class="card-button" onclick="openModal('laughModal')">😂 Need a Laugh</div>
+    <div class="card-button" onclick="openModal('quizModal')">🎮 Memory Quiz</div>
+    <div class="card-button" onclick="openModal('relaxModal')">🌙 Relax / Night Mode</div>
+    <div class="card-button" onclick="openModal('motivationModal')">💪 Motivation</div>
+    <div class="card-button" onclick="openModal('surpriseModal')">🎉 Extra Surprise</div>
   </div>
-</div>
 
-<!-- Hug -->
-<div id="hugModal" class="modal">
-  <div class="modalContent">
-    <span class="close" onclick="closeModal('hugModal')">&times;</span>
-    <div class="gallery"><img src="teddy_bear.jpg" alt="Teddy"><img src="hug_photo.jpg" alt="Hug"></div>
-    <p>Sending you a big hug 🤗💖</p>
+  <!-- MODALS -->
+
+  <!-- Birthday -->
+  <div id="birthdayModal" class="modal">
+    <div class="modalContent">
+      <span class="close" onclick="closeModal('birthdayModal')">&times;</span>
+      <h2>🎂 Flower Gift Card</h2>
+      <img src="images/flower_card.jpg" alt="Flower Gift Card">
+      <p>Enjoy a lily on me! Redeem this at your local florist or Whole Foods 💐</p>
+      <button class="redeem" onclick="redeemGift('flowers')">Redeem 🌸</button>
+    </div>
   </div>
-</div>
 
-<!-- Homesick -->
-<div id="homesickModal" class="modal">
-  <div class="modalContent">
-    <span class="close" onclick="closeModal('homesickModal')">&times;</span>
-    <p>People who love you:</p>
-    <ul><li>Me 💕</li><li>Mom</li><li>Dad</li></ul>
-    <div class="gallery"><img src="favorite_memory.jpg" alt="Memory"><img src="photo1.jpg" alt="Photo"></div>
+  <!-- Treat Yourself -->
+  <div id="treatModal" class="modal">
+    <div class="modalContent">
+      <span class="close" onclick="closeModal('treatModal')">&times;</span>
+      <h2>💅 Face Mask Gift Card</h2>
+      <img src="images/face_mask_card.jpg" alt="Face Mask Gift Card">
+      <p>Pamper yourself! Redeem at Ulta or Target 💖</p>
+      <button class="redeem" onclick="redeemGift('faceMask')">Redeem 🎉</button>
+    </div>
   </div>
-</div>
 
-<!-- Stressed -->
-<div id="stressedModal" class="modal">
-  <div class="modalContent">
-    <span class="close" onclick="closeModal('stressedModal')">&times;</span>
-    <div class="gallery"><img src="tea_bag.jpg" alt="Tea"><img src="stress_ball.jpg" alt="Stress Ball"></div>
-    <p>Breathe… you’ve got this 🌸</p>
+  <!-- Cozy / Rainy Day -->
+  <div id="cozyModal" class="modal">
+    <div class="modalContent">
+      <span class="close" onclick="closeModal('cozyModal')">&times;</span>
+      <h2>☕ Hot Chocolate / Coffee Voucher</h2>
+      <img src="images/coffee_card.jpg" alt="Coffee Voucher">
+      <p>Warm up with a hot drink at De Clieu Coffee or Starbucks ☕</p>
+      <button class="redeem" onclick="redeemGift('coffee')">Redeem 🎉</button>
+    </div>
   </div>
-</div>
 
-<!-- Motivation -->
-<div id="motivationModal" class="modal">
-  <div class="modalContent">
-    <span class="close" onclick="closeModal('motivationModal')">&times;</span>
-    <p>Remember your accomplishments! 💪</p>
-    <ul><li>Graduated 🎓</li><li>Learned to cook 🍳</li><li>Survived 2025 😎</li></ul>
-    <p>"You are stronger than you think!"</p>
+  <!-- Sweet Surprise -->
+  <div id="sweetModal" class="modal">
+    <div class="modalContent">
+      <span class="close" onclick="closeModal('sweetModal')">&times;</span>
+      <h2>🍬 Candy Treat Voucher</h2>
+      <img src="images/candy_card.jpg" alt="Candy Voucher">
+      <p>Redeem for a sweet treat at Sugar Shack or local candy store 🍭</p>
+      <button class="redeem" onclick="redeemGift('candy')">Redeem 🎉</button>
+    </div>
   </div>
-</div>
 
-<!-- Sick -->
-<div id="sickModal" class="modal">
-  <div class="modalContent">
-    <span class="close" onclick="closeModal('sickModal')">&times;</span>
-    <div class="gallery"><img src="tea_bag.jpg" alt="Tea"><img src="cough_drops.jpg" alt="Cough"></div>
-    <p>Feel better soon! 💖</p>
+  <!-- Hug / Love -->
+  <div id="hugModal" class="modal">
+    <div class="modalContent">
+      <span class="close" onclick="closeModal('hugModal')">&times;</span>
+      <h2>🤗 Redeem a Hug</h2>
+      <img src="images/hug_coupon.jpg" alt="Hug Coupon">
+      <p>This coupon is good for 1 big hug whenever you need it 💖</p>
+      <button class="redeem" onclick="redeemGift('hug')">Redeem 🎉</button>
+    </div>
   </div>
-</div>
 
-<!-- Mad -->
-<div id="madModal" class="modal">
-  <div class="modalContent">
-    <span class="close" onclick="closeModal('madModal')">&times;</span>
-    <p>Hey… I’m sorry 😌💖</p>
-    <p>Reasons I love you:</p>
-    <ul><li>Your smile 😊</li><li>Our adventures 🎉</li><li>Inside jokes 😂</li></ul>
+  <!-- Miss Me -->
+  <div id="missMeModal" class="modal">
+    <div class="modalContent">
+      <span class="close" onclick="closeModal('missMeModal')">&times;</span>
+      <h2>💌 Virtual “Miss You” Card</h2>
+      <img src="images/miss_me_card.jpg" alt="Miss You Card">
+      <p>Redeem for a virtual hug, call, or sweet message 💖</p>
+      <button class="redeem" onclick="redeemGift('missMe')">Redeem 🎉</button>
+    </div>
   </div>
-</div>
 
-<!-- Can't Sleep -->
-<div id="cantSleepModal" class="modal">
-  <div class="modalContent">
-    <span class="close" onclick="closeModal('cantSleepModal')">&times;</span>
-    <div class="gallery"><img src="relaxing_tea.jpg" alt="Tea"><img src="poem.jpg" alt="Poem"></div>
-    <p>Relax and rest easy 🌙</p>
+  <!-- Need a Laugh -->
+  <div id="laughModal" class="modal">
+    <div class="modalContent">
+      <span class="close" onclick="closeModal('laughModal')">&times;</span>
+      <h2>😂 Joke / Meme Voucher</h2>
+      <img src="images/meme1.jpg" alt="Funny Meme">
+      <p>Redeem for some laughter! Enjoy the inside jokes 😄</p>
+      <button class="redeem" onclick="redeemGift('laugh')">Redeem 🎉</button>
+    </div>
   </div>
-</div>
 
-<!-- Laugh -->
-<div id="laughModal" class="modal">
-  <div class="modalContent">
-    <span class="close" onclick="closeModal('laughModal')">&times;</span>
-    <div class="gallery"><img src="funny_meme1.jpg" alt="Meme1"><img src="funny_meme2.jpg" alt="Meme2"></div>
-    <p>😂 Hope this made you laugh!</p>
+  <!-- Memory Quiz -->
+  <div id="quizModal" class="modal">
+    <div class="modalContent">
+      <span class="close" onclick="closeModal('quizModal')">&times;</span>
+      <h2>🎮 Bestie Memory Quiz!</h2>
+      <ol>
+        <li>Where did we first meet? 🤔</li>
+        <li>Favorite inside joke? 😂</li>
+        <li>Most epic adventure together? 🌟</li>
+      </ol>
+      <button class="redeem" onclick="redeemGift('quiz')">Check Answers 🎉</button>
+    </div>
   </div>
-</div>
 
-<!-- Milestone -->
-<div id="milestoneModal" class="modal">
-  <div class="modalContent">
-    <span class="close" onclick="closeModal('milestoneModal')">&times;</span>
-    <p>Congrats on your achievement! 🎉</p>
-    <button onclick="confettiBlast()">Celebrate 🎊</button>
+  <!-- Relax / Night Mode -->
+  <div id="relaxModal" class="modal">
+    <div class="modalContent">
+      <span class="close" onclick="closeModal('relaxModal')">&times;</span>
+      <h2>🌙 Tea & Relaxation Voucher</h2>
+      <img src="images/tea_card.jpg" alt="Tea Voucher">
+      <p>Use this for a calm night. Redeem at Haraz Coffee or any tea shop 🍵</p>
+      <button class="redeem" onclick="redeemGift('relax')">Redeem 🎉</button>
+    </div>
   </div>
-</div>
 
-<!-- Holiday -->
-<div id="holidayModal" class="modal">
-  <div class="modalContent">
-    <span class="close" onclick="closeModal('holidayModal')">&times;</span>
-    <p>Happy special day! 💖</p>
-    <div class="gallery"><img src="holiday_card.jpg" alt="Holiday"></div>
+  <!-- Motivation -->
+  <div id="motivationModal" class="modal">
+    <div class="modalContent">
+      <span class="close" onclick="closeModal('motivationModal')">&times;</span>
+      <h2>💪 Achievement Voucher</h2>
+      <p>Redeem this for a motivational pep talk! You are awesome 🌸</p>
+      <button class="redeem" onclick="redeemGift('motivation')">Redeem 🎉</button>
+    </div>
   </div>
-</div>
 
-<!-- Bored -->
-<div id="boredModal" class="modal">
-  <div class="modalContent">
-    <span class="close" onclick="closeModal('boredModal')">&times;</span>
-    <p>Cozy activities or movies:</p>
-    <ul><li>Watch a movie 🎬</li><li>Puzzle 🧩</li><li>Listen to music 🎵</li></ul>
+  <!-- Extra Surprise -->
+  <div id="surpriseModal" class="modal">
+    <div class="modalContent">
+      <span class="close" onclick="closeModal('surpriseModal')">&times;</span>
+      <h2>🎉 Confetti Party Voucher</h2>
+      <p>Press the button to celebrate with confetti! 🎊</p>
+      <button class="redeem" onclick="redeemGift('party')">Celebrate 🎉</button>
+    </div>
   </div>
-</div>
 
-<!-- Rainy -->
-<div id="rainyModal" class="modal">
-  <div class="modalContent">
-    <span class="close" onclick="closeModal('rainyModal')">&times;</span>
-    <p>Perfect rainy day ideas 🌧️:</p>
-    <ul><li>Read a book 📖</li><li>Watch a movie 🎬</li><li>Hot chocolate ☕</li></ul>
-  </div>
-</div>
+  <script>
+    // Open/Close modals
+    function openModal(id) {
+      document.getElementById(id).style.display = 'block';
+    }
+    function closeModal(id) {
+      document.getElementById(id).style.display = 'none';
+    }
 
-<!-- Miss Me -->
-<div id="missMeModal" class="modal">
-  <div class="modalContent">
-    <span class="close" onclick="closeModal('missMeModal')">&times;</span>
-    <div class="gallery"><img src="framed_photo.jpg" alt="Framed"></div>
-    <p>Wish I was there 💖</p>
-  </div>
-</div>
+    // Redeem gift action
+    function redeemGift(type) {
+      alert(`You redeemed your ${type} gift! 🎉 Enjoy!`);
+      confettiBlast();
+    }
 
-<!-- Forget Me -->
-<div id="forgetMeModal" class="modal">
-  <div class="modalContent">
-    <span class="close" onclick="closeModal('forgetMeModal')">&times;</span>
-    <div class="gallery"><img src="selfie.jpg" alt="Selfie"><img src="recent_photo.jpg" alt="Photo"></div>
-    <p>Here’s a recent photo 😘</p>
-  </div>
-</div>
+    // Confetti effect (simple)
+    function confettiBlast() {
+      const duration = 1 * 1000;
+      const end = Date.now() + duration;
 
-<!-- Memory Quiz -->
-<div id="memoryQuizModal" class="modal">
-  <div class="modalContent">
-    <span class="close" onclick="closeModal('memoryQuizModal')">&times;</span>
-    <p>🎮 Bestie Memory Quiz!</p>
-    <ol>
-      <li>Where did we first meet? 🤔</li>
-      <li>Favorite inside joke? 😂</li>
-      <li>Most epic adventure? 🌟</li>
-    </ol>
-  </div>
-</div>
+      (function frame() {
+        confetti({
+          particleCount: 5,
+          angle: 60,
+          spread: 55,
+          origin: { x: 0 }
+        });
+        confetti({
+          particleCount: 5,
+          angle: 120,
+          spread: 55,
+          origin: { x: 1 }
+        });
 
-<!-- AUDIO -->
-<audio id="song" src="song.mp3"></audio>
+        if (Date.now() < end) {
+          requestAnimationFrame(frame);
+        }
+      }());
+    }
 
-<script>
-function openModal(id){document.getElementById(id).style.display="block";}
-function closeModal(id){document.getElementById(id).style.display="none";}
-function confettiBlast(){ confetti({particleCount:200, spread:80, colors:['#f8bbd0','#fce4ec','#c8e6c9']});}
-function toggleNight(){document.body.classList.toggle('night');}
-const birthday=new Date("2026-03-01");
-setInterval(()=>{
-  const now=new Date();
-  const diff=birthday-now;
-  const days=Math.floor(diff/(1000*60*60*24));
-  document.getElementById("countdown").innerText="Countdown: "+days+" days 💖";
-},1000);
-</script>
-
-<!-- FLOATING LILIES -->
-<img class="lily" src="lily1.png" style="left:10%;">
-<img class="lily" src="lily2.png" style="left:50%;">
-<img class="lily" src="lily3.png" style="left:80%;">
+    // Include canvas-confetti via CDN
+    const script = document.createElement('script');
+    script.src = "https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js";
+    document.head.appendChild(script);
+  </script>
 </body>
 </html>
+
 
