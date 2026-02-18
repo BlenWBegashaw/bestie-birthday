@@ -6,36 +6,57 @@
 <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Poppins&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 <style>
+/* ====== BODY ====== */
 body {
   margin:0; font-family:'Poppins',sans-serif; background:linear-gradient(135deg,#fce4ec,#f8bbd0);
-  color:#880e4f; transition:.5s; overflow-x:hidden; text-align:center;
+  color:#880e4f; transition:.8s; overflow-x:hidden; text-align:center; min-height:100vh;
 }
 body.night { background:linear-gradient(135deg,#1e1e2f,#3a3a6a); color:#eee; }
+
+/* ====== HEADINGS ====== */
 h1 { font-family:'Dancing Script',cursive; font-size:3em; margin-top:40px; }
-h2#countdown { margin-top:10px; }
+h2#countdown { margin-top:10px; font-size:1.3em; font-weight:500; }
 
-/* CARD LIST */
+/* ====== CARD LIST ====== */
 .cardContainer { width:90%; max-width:500px; margin:15px auto; }
-.card { background:rgba(255,255,255,0.85); padding:20px; border-radius:20px; cursor:pointer; box-shadow:0 8px 20px rgba(136,14,79,0.3); transition:.3s; }
-.card:hover { transform:scale(1.03); box-shadow:0 12px 30px rgba(136,14,79,0.5); }
+.card {
+  background:rgba(255,255,255,0.85); padding:20px; border-radius:20px; cursor:pointer; 
+  box-shadow:0 8px 20px rgba(136,14,79,0.3); transition:.4s; user-select:none;
+}
+.card:hover {
+  transform:scale(1.05) rotateZ(-1deg);
+  box-shadow:0 15px 35px rgba(136,14,79,0.5);
+}
 
-/* MODAL */
-.modal { display:none; position:fixed; z-index:999; left:0;top:0;width:100%;height:100%;overflow:auto; background:rgba(0,0,0,0.7);}
-.modalContent { background:linear-gradient(135deg,#fce4ec,#f8bbd0); margin:5% auto; padding:30px; border-radius:20px; width:80%; max-width:600px; text-align:center; position:relative; }
+/* ====== MODAL ====== */
+.modal { display:none; position:fixed; z-index:999; left:0;top:0;width:100%;height:100%;overflow:auto; 
+        background:rgba(0,0,0,0.7); animation:fadeIn 0.4s ease forwards;}
+.modalContent { background:linear-gradient(135deg,#fce4ec,#f8bbd0); margin:5% auto; 
+                padding:30px; border-radius:20px; width:90%; max-width:600px; 
+                text-align:center; position:relative; transition:transform 0.4s ease; }
 .modalContent img, .modalContent video { width:100%; border-radius:15px; margin-bottom:15px; }
-.modalContent .gallery { display:flex; overflow-x:auto; gap:10px; padding:10px 0; }
-.modalContent .gallery img, .modalContent .gallery video { flex:0 0 auto; width:150px; height:100px; object-fit:cover; }
+.modalContent .gallery { display:flex; overflow-x:auto; gap:10px; padding:10px 0; scroll-behavior:smooth; }
+.modalContent .gallery img, .modalContent .gallery video { flex:0 0 auto; width:150px; height:100px; object-fit:cover; border:2px solid #f48fb1; border-radius:10px; }
 
-/* CLOSE BUTTON */
-.close { position:absolute; top:15px; right:20px; font-size:30px; font-weight:bold; cursor:pointer; }
+/* ====== CLOSE BUTTON ====== */
+.close { position:absolute; top:15px; right:20px; font-size:30px; font-weight:bold; cursor:pointer; transition:.3s; }
+.close:hover { color:#f06292; transform:rotate(90deg); }
 
-/* BUTTONS */
-button { padding:10px 20px; border:none; border-radius:20px; background:#f48fb1; color:white; cursor:pointer; font-weight:bold; margin:10px 0; }
+/* ====== BUTTONS ====== */
+button { padding:10px 20px; border:none; border-radius:20px; background:#f48fb1; color:white; cursor:pointer; font-weight:bold; margin:10px 0; transition:.3s; }
 button:hover { background:#f06292; transform:scale(1.05); }
 
-/* FLOATING LILIES */
-.lily { position:absolute; width:50px; opacity:.7; animation:floatLily 20s linear infinite; }
+/* ====== FLOATING LILIES ====== */
+.lily { position:absolute; opacity:.7; animation:floatLily 20s linear infinite; }
 @keyframes floatLily { 0%{transform:translateY(100vh) rotate(0deg);} 100%{transform:translateY(-100px) rotate(360deg);} }
+
+/* ====== ANIMATIONS ====== */
+@keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
+
+/* ====== SCROLLBAR ====== */
+.modalContent .gallery::-webkit-scrollbar { height:8px; }
+.modalContent .gallery::-webkit-scrollbar-thumb { background:#f48fb1; border-radius:4px; }
+.modalContent .gallery::-webkit-scrollbar-track { background:rgba(255,255,255,0.3); }
 </style>
 </head>
 <body>
@@ -44,86 +65,35 @@ button:hover { background:#f06292; transform:scale(1.05); }
 <h2 id="countdown"></h2>
 
 <!-- CARD LIST -->
-<div class="cardContainer"><div class="card" onclick="openModal('birthdayModal')">🎂 Birthday – Flower Gift</div></div>
-<div class="cardContainer"><div class="card" onclick="openModal('coffeeModal')">☕ Coffee / Cozy Day</div></div>
-<div class="cardContainer"><div class="card" onclick="openModal('nailsModal')">💅 Treat Yourself – Nails</div></div>
-<div class="cardContainer"><div class="card" onclick="openModal('buildabearModal')">🧸 Build-A-Bear Gift</div></div>
-<div class="cardContainer"><div class="card" onclick="openModal('maskModal')">💖 Face Mask / Self Care</div></div>
-<div class="cardContainer"><div class="card" onclick="openModal('candyModal')">🍬 Sweet Surprise – Candy</div></div>
+<div class="cardContainer"><div class="card" onclick="openModal('birthdayModal')">🎂 It’s Your Birthday</div></div>
 <div class="cardContainer"><div class="card" onclick="openModal('hugModal')">🤗 You Need a Hug</div></div>
-<div class="cardContainer"><div class="card" onclick="openModal('missMeModal')">💌 Miss Me – Virtual Card</div></div>
-<div class="cardContainer"><div class="card" onclick="openModal('laughModal')">😂 You Need a Laugh – Meme</div></div>
-<div class="cardContainer"><div class="card" onclick="openModal('quizModal')">🎮 Bestie Memory Quiz</div></div>
-<div class="cardContainer"><div class="card" onclick="openModal('relaxModal')">🌙 Relax / Tea</div></div>
+<div class="cardContainer"><div class="card" onclick="openModal('homesickModal')">🏠 You Feel Homesick / Lonely</div></div>
+<div class="cardContainer"><div class="card" onclick="openModal('stressedModal')">😩 You Are Overwhelmed / Stressed</div></div>
 <div class="cardContainer"><div class="card" onclick="openModal('motivationModal')">💪 You Need Motivation</div></div>
-<div class="cardContainer"><div class="card" onclick="openModal('surpriseModal')">🎉 Extra Surprise – Confetti</div></div>
+<div class="cardContainer"><div class="card" onclick="openModal('sickModal')">🤒 You Are Sick</div></div>
+<div class="cardContainer"><div class="card" onclick="openModal('madModal')">😡 We Are Fighting / You Are Mad</div></div>
+<div class="cardContainer"><div class="card" onclick="openModal('cantSleepModal')">🌙 You Can't Sleep</div></div>
+<div class="cardContainer"><div class="card" onclick="openModal('laughModal')">😂 You Need a Laugh</div></div>
+<div class="cardContainer"><div class="card" onclick="openModal('milestoneModal')">🎉 You Accomplished Something</div></div>
+<div class="cardContainer"><div class="card" onclick="openModal('holidayModal')">🎁 Holiday / Anniversary</div></div>
+<div class="cardContainer"><div class="card" onclick="openModal('boredModal')">😴 You Are Bored</div></div>
+<div class="cardContainer"><div class="card" onclick="openModal('rainyModal')">☔ It’s a Rainy Day</div></div>
+<div class="cardContainer"><div class="card" onclick="openModal('missMeModal')">💌 You Miss Me</div></div>
+<div class="cardContainer"><div class="card" onclick="openModal('forgetMeModal')">🖼 You Forget What I Look Like</div></div>
 <div class="cardContainer"><div class="card" onclick="toggleNight()">🌙 Toggle Night Mode</div></div>
 
 <!-- MODALS -->
-
 <!-- Birthday -->
 <div id="birthdayModal" class="modal">
   <div class="modalContent">
     <span class="close" onclick="closeModal('birthdayModal')">&times;</span>
-    <h2>🎂 Flower Gift Card 💐</h2>
-    <div class="gallery"><img src="images/flower_card.jpg" alt="Flower Gift"></div>
-    <p>Redeem a $5 flower gift at Whole Foods or local florist 🌸</p>
-    <button onclick="redeemGift('Flower Gift')">Redeem 🌸</button>
-  </div>
-</div>
-
-<!-- Coffee -->
-<div id="coffeeModal" class="modal">
-  <div class="modalContent">
-    <span class="close" onclick="closeModal('coffeeModal')">&times;</span>
-    <h2>☕ Coffee / Cozy Voucher</h2>
-    <div class="gallery"><img src="images/coffee_card.jpg" alt="Coffee Voucher"></div>
-    <p>Redeem $2 for coffee or hot chocolate at De Clieu Coffee ☕</p>
-    <button onclick="redeemGift('Coffee')">Redeem ☕</button>
-  </div>
-</div>
-
-<!-- Nails -->
-<div id="nailsModal" class="modal">
-  <div class="modalContent">
-    <span class="close" onclick="closeModal('nailsModal')">&times;</span>
-    <h2>💅 Nail Gift Card</h2>
-    <div class="gallery"><img src="images/nails_card.jpg" alt="Nail Voucher"></div>
-    <p>Redeem $10 for a mani/pedi session nearby 💖</p>
-    <button onclick="redeemGift('Nails')">Redeem 💅</button>
-  </div>
-</div>
-
-<!-- Build-A-Bear -->
-<div id="buildabearModal" class="modal">
-  <div class="modalContent">
-    <span class="close" onclick="closeModal('buildabearModal')">&times;</span>
-    <h2>🧸 Build-A-Bear Gift</h2>
-    <div class="gallery"><img src="images/buildabear_card.jpg" alt="Build-A-Bear"></div>
-    <p>Redeem $15 towards a cute stuffed animal 💖</p>
-    <button onclick="redeemGift('Build-A-Bear')">Redeem 🧸</button>
-  </div>
-</div>
-
-<!-- Face Mask -->
-<div id="maskModal" class="modal">
-  <div class="modalContent">
-    <span class="close" onclick="closeModal('maskModal')">&times;</span>
-    <h2>💖 Face Mask Gift Card</h2>
-    <div class="gallery"><img src="images/mask_card.jpg" alt="Face Mask"></div>
-    <p>Pamper yourself with a $10 face mask at Ulta or Target 💖</p>
-    <button onclick="redeemGift('Face Mask')">Redeem 💖</button>
-  </div>
-</div>
-
-<!-- Candy -->
-<div id="candyModal" class="modal">
-  <div class="modalContent">
-    <span class="close" onclick="closeModal('candyModal')">&times;</span>
-    <h2>🍬 Candy Voucher</h2>
-    <div class="gallery"><img src="images/candy_card.jpg" alt="Candy"></div>
-    <p>Redeem $3 for a sweet treat 🍭</p>
-    <button onclick="redeemGift('Candy')">Redeem 🍬</button>
+    <h2>🎂 Happy Birthday! 💖</h2>
+    <p>A small gift card and a heartfelt letter just for you! 🎁</p>
+    <div class="gallery">
+      <img src="birthday_card.jpg" alt="Birthday Card">
+      <img src="gift_card.jpg" alt="Gift Card">
+    </div>
+    <button onclick="confettiBlast()">Celebrate 🎊</button>
   </div>
 </div>
 
@@ -131,53 +101,38 @@ button:hover { background:#f06292; transform:scale(1.05); }
 <div id="hugModal" class="modal">
   <div class="modalContent">
     <span class="close" onclick="closeModal('hugModal')">&times;</span>
-    <div class="gallery"><img src="images/hug_coupon.jpg" alt="Hug"></div>
-    <p>This coupon is good for 1 big hug 💖</p>
-    <button onclick="redeemGift('Hug')">Redeem 🤗</button>
+    <p>Here’s a big hug! 🤗💖</p>
+    <div class="gallery">
+      <img src="teddy_bear.jpg" alt="Teddy Bear">
+      <img src="hug_photo.jpg" alt="Photo of Hug">
+    </div>
   </div>
 </div>
 
-<!-- Miss Me -->
-<div id="missMeModal" class="modal">
+<!-- Homesick -->
+<div id="homesickModal" class="modal">
   <div class="modalContent">
-    <span class="close" onclick="closeModal('missMeModal')">&times;</span>
-    <div class="gallery"><img src="images/miss_me_card.jpg" alt="Miss Me"></div>
-    <p>Redeem for a virtual hug or call 💌</p>
-    <button onclick="redeemGift('Miss Me')">Redeem 💌</button>
+    <span class="close" onclick="closeModal('homesickModal')">&times;</span>
+    <p>People who love you:</p>
+    <ul><li>Me 💕</li><li>Mom</li><li>Dad</li></ul>
+    <p>Favorite memories or a scent-sprayed note 🌸</p>
+    <div class="gallery">
+      <img src="favorite_memory.jpg" alt="Memory">
+      <img src="scented_note.jpg" alt="Scented Note">
+    </div>
   </div>
 </div>
 
-<!-- Laugh -->
-<div id="laughModal" class="modal">
+<!-- Stressed -->
+<div id="stressedModal" class="modal">
   <div class="modalContent">
-    <span class="close" onclick="closeModal('laughModal')">&times;</span>
-    <div class="gallery"><img src="images/meme1.jpg" alt="Meme"></div>
-    <p>Redeem for some laughs 😂</p>
-    <button onclick="redeemGift('Meme')">Redeem 😂</button>
-  </div>
-</div>
-
-<!-- Quiz -->
-<div id="quizModal" class="modal">
-  <div class="modalContent">
-    <span class="close" onclick="closeModal('quizModal')">&times;</span>
-    <p>🎮 Bestie Memory Quiz!</p>
-    <ol>
-      <li>Where did we first meet? 🤔</li>
-      <li>Favorite inside joke? 😂</li>
-      <li>Most epic adventure? 🌟</li>
-    </ol>
-    <button onclick="redeemGift('Quiz')">Check Answers 🎉</button>
-  </div>
-</div>
-
-<!-- Relax / Tea -->
-<div id="relaxModal" class="modal">
-  <div class="modalContent">
-    <span class="close" onclick="closeModal('relaxModal')">&times;</span>
-    <div class="gallery"><img src="images/tea_card.jpg" alt="Tea Voucher"></div>
-    <p>Redeem $3 for tea night 🍵</p>
-    <button onclick="redeemGift('Tea')">Redeem 🍵</button>
+    <span class="close" onclick="closeModal('stressedModal')">&times;</span>
+    <p>Breathe… you’ve got this 🌸</p>
+    <p>Includes tea bags, bubble wrap, or a stress ball 🫖🎾</p>
+    <div class="gallery">
+      <img src="tea_bag.jpg" alt="Tea Bag">
+      <img src="stress_ball.jpg" alt="Stress Ball">
+    </div>
   </div>
 </div>
 
@@ -185,25 +140,67 @@ button:hover { background:#f06292; transform:scale(1.05); }
 <div id="motivationModal" class="modal">
   <div class="modalContent">
     <span class="close" onclick="closeModal('motivationModal')">&times;</span>
-    <p>Redeem this for a motivational pep talk 💪</p>
-    <button onclick="redeemGift('Motivation')">Redeem 💪</button>
+    <p>Remember your accomplishments! 💪</p>
+    <ul>
+      <li>Graduated 🎓</li>
+      <li>Learned to cook 🍳</li>
+      <li>Survived 2025 😎</li>
+    </ul>
+    <p>"You are stronger than you think!"</p>
   </div>
 </div>
 
-<!-- Surprise -->
-<div id="surpriseModal" class="modal">
+<!-- Sick -->
+<div id="sickModal" class="modal">
   <div class="modalContent">
-    <span class="close" onclick="closeModal('surpriseModal')">&times;</span>
-    <p>Press to celebrate! 🎊</p>
-    <button onclick="redeemGift('Confetti Party')">Celebrate 🎉</button>
+    <span class="close" onclick="closeModal('sickModal')">&times;</span>
+    <p>Feel better soon! 💖 Includes tea, cough drops, and tissues 🫖🤧</p>
+    <div class="gallery">
+      <img src="tea_bag.jpg" alt="Tea Bag">
+      <img src="cough_drops.jpg" alt="Cough Drops">
+      <img src="tissues.jpg" alt="Tissues">
+    </div>
   </div>
 </div>
+
+<!-- Mad -->
+<div id="madModal" class="modal">
+  <div class="modalContent">
+    <span class="close" onclick="closeModal('madModal')">&times;</span>
+    <p>Hey… I’m sorry 😌💖</p>
+    <p>Reasons I love you:</p>
+    <ul><li>Your smile 😊</li><li>Our adventures 🎉</li><li>Inside jokes 😂</li></ul>
+  </div>
+</div>
+
+<!-- Can't Sleep -->
+<div id="cantSleepModal" class="modal">
+  <div class="modalContent">
+    <span class="close" onclick="closeModal('cantSleepModal')">&times;</span>
+    <p>Relax and rest easy 🌙</p>
+    <p>Includes tea, a poem, or a comforting memory 🫖📜</p>
+    <div class="gallery">
+      <img src="relaxing_tea.jpg" alt="Tea">
+      <img src="poem.jpg" alt="Poem">
+      <img src="soothing_memory.jpg" alt="Memory">
+    </div>
+  </div>
+</div>
+
+<!-- More modals follow same pattern (laugh, milestone, holiday, bored, rainy, missMe, forgetMe, memory quiz) -->
+
+<!-- FLOATING LILIES -->
+<img class="lily" src="lily1.png" style="left:10%;width:40px;">
+<img class="lily" src="lily2.png" style="left:50%;width:60px;">
+<img class="lily" src="lily3.png" style="left:80%;width:50px;">
 
 <script>
-function openModal(id){document.getElementById(id).style.display='block';}
-function closeModal(id){document.getElementById(id).style.display='none';}
-function confettiBlast(){confetti({particleCount:200, spread:80, colors:['#f8bbd0','#fce4ec','#c8e6c9']});}
+function openModal(id){document.getElementById(id).style.display="block";}
+function closeModal(id){document.getElementById(id).style.display="none";}
+function confettiBlast(){confetti({particleCount:250,spread:120,colors:['#f8bbd0','#fce4ec','#c8e6c9','#ffcc80']});}
 function toggleNight(){document.body.classList.toggle('night');}
+
+// Countdown
 const birthday=new Date("2026-03-01");
 setInterval(()=>{
   const now=new Date();
@@ -211,16 +208,12 @@ setInterval(()=>{
   const days=Math.floor(diff/(1000*60*60*24));
   document.getElementById("countdown").innerText="Countdown: "+days+" days 💖";
 },1000);
-function redeemGift(item){
-  alert(`You redeemed your ${item}! 🎉 Enjoy!`);
-  confettiBlast();
+
+// Close modal on outside click
+window.onclick=function(e){
+  if(e.target.classList.contains('modal')) e.target.style.display='none';
 }
 </script>
-
-<!-- Floating Lilies -->
-<img class="lily" src="images/lily1.png" style="left:10%;">
-<img class="lily" src="images/lily2.png" style="left:50%;">
-<img class="lily" src="images/lily3.png" style="left:80%;">
-
 </body>
 </html>
+
