@@ -200,14 +200,7 @@ function closeModal(id){document.getElementById(id).style.display="none";}
 function confettiBlast(){confetti({particleCount:250,spread:120,colors:['#f8bbd0','#fce4ec','#c8e6c9','#ffcc80']});}
 function toggleNight(){document.body.classList.toggle('night');}
 
-// Countdown
-const birthday=new Date("2026-03-01");
-setInterval(()=>{
-  const now=new Date();
-  const diff=birthday-now;
-  const days=Math.floor(diff/(1000*60*60*24));
-  document.getElementById("countdown").innerText="Countdown: "+days+" days 💖";
-},1000);
+
 
 // Close modal on outside click
 window.onclick=function(e){
