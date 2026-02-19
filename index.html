@@ -3,12 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <title>🌸 Open When – For My Best Friend</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Poppins:wght@300;400;600&family=Cairo&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-
 <style>
-
 /* ===== BODY ===== */
 body{
   margin:0;
@@ -119,7 +116,6 @@ hr{
   background:#f9a8d4;
   margin:20px 0;
 }
-
 </style>
 </head>
 <body>
@@ -127,19 +123,19 @@ hr{
 <h1>🌸 Open When… 🌸</h1>
 
 <!-- CARDS -->
-<div class="cardContainer"><div class="card" onclick="openModal('birthday')"> It’s Your Birthday</div></div>
-<div class="cardContainer"><div class="card" onclick="openModal('hug')"> You Need a Hug</div></div>
-<div class="cardContainer"><div class="card" onclick="openModal('homesick')"> You Feel Homesick</div></div>
-<div class="cardContainer"><div class="card" onclick="openModal('stressed')"> You Are Overwhelmed</div></div>
-<div class="cardContainer"><div class="card" onclick="openModal('motivation')"> You Need Motivation</div></div>
-<div class="cardContainer"><div class="card" onclick="openModal('sick')"> You Are Sick</div></div>
-<div class="cardContainer"><div class="card" onclick="openModal('mad')"> We Are Fighting</div></div>
-<div class="cardContainer"><div class="card" onclick="openModal('sleep')"> You Can't Sleep</div></div>
-<div class="cardContainer"><div class="card" onclick="openModal('laugh')"> You Need a Laugh</div></div>
-<div class="cardContainer"><div class="card" onclick="openModal('goal')"> You Accomplished Something</div></div>
-<div class="cardContainer"><div class="card" onclick="openModal('bored')"> You Are Bored</div></div>
-<div class="cardContainer"><div class="card" onclick="openModal('miss')"> You Miss Me</div></div>
-<div class="cardContainer"><div class="card" onclick="toggleNight()"> Toggle Night Mode</div></div>
+<div class="cardContainer"><div class="card" onclick="openModal('birthday')">It’s Your Birthday</div></div>
+<div class="cardContainer"><div class="card" onclick="openModal('hug')">You Need a Hug</div></div>
+<div class="cardContainer"><div class="card" onclick="openModal('homesick')">You Feel Lonely / Homesick</div></div>
+<div class="cardContainer"><div class="card" onclick="openModal('stressed')">You Are Overwhelmed</div></div>
+<div class="cardContainer"><div class="card" onclick="openModal('motivation')">You Need Motivation</div></div>
+<div class="cardContainer"><div class="card" onclick="openModal('sick')">You Are Sick</div></div>
+<div class="cardContainer"><div class="card" onclick="openModal('mad')">We Are Fighting / You Are Mad</div></div>
+<div class="cardContainer"><div class="card" onclick="openModal('sleep')">You Can't Sleep</div></div>
+<div class="cardContainer"><div class="card" onclick="openModal('laugh')">You Need a Laugh</div></div>
+<div class="cardContainer"><div class="card" onclick="openModal('goal')">You Accomplished Something</div></div>
+<div class="cardContainer"><div class="card" onclick="openModal('miss')">You Miss Me</div></div>
+<div class="cardContainer"><div class="card" onclick="openModal('bored')">You Are Bored</div></div>
+<div class="cardContainer"><div class="card" onclick="toggleNight()">Toggle Night Mode</div></div>
 
 <!-- BIRTHDAY -->
 <div id="birthday" class="modal">
@@ -147,32 +143,23 @@ hr{
 <span class="close" onclick="closeModal('birthday')">&times;</span>
 <h2>Happy Birthday 🤍</h2>
 <p>This flower is on me 🌸</p>
-<a href="https://www.walmart.com/ip/Peace-Lily-Plant-Spathyphyllium-4-Pot-Decorative-Pot-Cover/116539592" target="_blank">
-<button>Redeem Flower ($12)</button></a>
+<a href="https://www.walmart.com/ip/Peace-Lily-Plant-Spathyphyllium-4-Pot-Decorative-Pot-Cover/116539592" target="_blank"><button>Redeem Flower ($12)</button></a>
 <button onclick="confettiBlast()">Celebrate 🎊</button>
 </div>
 </div>
 
-<!-- HOMESICK (FULL LETTER INCLUDED) -->
+<!-- HOMESICK / LONELY -->
 <div id="homesick" class="modal">
 <div class="modalContent">
 <span class="close" onclick="closeModal('homesick')">&times;</span>
-
 <p style="direction:rtl; text-align:right; line-height:1.9; font-size:16px;">
-حبيبتي ديدي، <br><br>
-اذا تقرين كلامي هذا، اعرف ان قلبك مستوحش الان بس عادي انك تحسين كذا وعادي تشتاقين لur home! واذا هذا له معنى ف معناه ان ur home كان محب ودافيء جدا!
-اتمنى تتذكرين انك جدا شجاعة لما قررتي تتركين كل شيء تعودتي عليه عشان تتعلمين شيء جديد وبعيد وشيء مثل كذا يتطلب قوة مو الكل يملكها!
-حتى في الايام الي تحسين فيها مرهقه وضعيفه وقليلة، تاكدي ان الي تسوينه مو قليل وشيء عظيم! وانتي مو لحالك في هذا.. انا معاك زي دايم!
-اذا تحسين بثقل وارهاق اليوم، تدفي ببطانية حنووونه، سوي كرك وانبسطي بدفئه وحلاوته، وكلمي اهلك واذا تحسين تحتاجين، كلميني بعد في اي وقت تبغين!
-انا فخوره فيك مره!!<br><br>
+حبيبتي ديدي،<br><br>
+اذا تقرين كلامي هذا، اعرف ان قلبك مستوحش الان بس عادي انك تحسين كذا وعادي تشتاقين لur home! واذا هذا له معنى ف معناه ان ur home كان محب ودافيء جدا!<br><br>
+اتمنى تتذكرين انك جدا شجاعة لما قررتي تتركين كل شيء تعودتي عليه عشان تتعلمين شيء جديد وبعيد وشيء مثل كذا يتطلب قوة مو الكل يملكها!<br><br>
+حتى في الايام الي تحسين فيها مرهقه وضعيفه وقليلة، تاكدي ان الي تسوينه مو قليل وشيء عظيم! وانتي مو لحالك في هذا.. انا معاك زي دايم!<br><br>
+اذا تحسين بثقل وارهاق اليوم، تدفي ببطانية حنووونه، سوي كرك وانبسطي بدفئه وحلاوته، وكلمي اهلك واذا تحسين تحتاجين، كلميني بعد في اي وقت تبغين!<br><br>
+انا فخوره فيك مره!!
 </p>
-
-<hr>
-
-<iframe style="border-radius:12px"
-src="https://open.spotify.com/embed/playlist/2Uk4rzneow3jFXJZOTP5HQ"
-height="152" allow="autoplay; clipboard-write; encrypted-media;"></iframe>
-
 <button onclick="alert('Redeem FaceTime 💌')">Call Me Now</button>
 </div>
 </div>
@@ -190,11 +177,95 @@ height="152" allow="autoplay; clipboard-write; encrypted-media;"></iframe>
 ☑ Use the Target gift card, buy a face mask, and relax<br>
 ☐ Start fresh tomorrow
 </p>
-<a href="https://www.target.com/p/que-bella-relax-38-unwind-face-mask-collection-6pc/-/A-89089478" target="_blank">
-<button>Redeem Face Mask ($10)</button></a>
+<a href="https://www.target.com/p/que-bella-relax-38-unwind-face-mask-collection-6pc/-/A-89089478" target="_blank"><button>Redeem Face Mask ($10)</button></a>
 <iframe src="https://www.youtube.com/embed/9fEo9my03Ks" allowfullscreen></iframe>
-<p>You are stronger than this moment.<br>
-Tomorrow is a clean page waiting for you.</p>
+<p>You are stronger than this moment.<br>Tomorrow is a clean page waiting for you.</p>
+</div>
+</div>
+
+<!-- MOTIVATION -->
+<div id="motivation" class="modal">
+<div class="modalContent">
+<span class="close" onclick="closeModal('motivation')">&times;</span>
+<h2>💪 Motivation Time</h2>
+<p>"You are stronger than you think!"</p>
+<iframe src="https://www.youtube.com/embed/9fEo9my03Ks" allowfullscreen></iframe>
+<img src="quote_pic.jpg" alt="Motivational Quote" style="margin-top:15px; border-radius:12px;">
+</div>
+</div>
+
+<!-- SICK -->
+<div id="sick" class="modal">
+<div class="modalContent">
+<span class="close" onclick="closeModal('sick')">&times;</span>
+<h2>🤒 Get Well Soon</h2>
+<p>Order Panera soup on me 🍲💖</p>
+<a href="https://order.panera.com" target="_blank"><button>Order Soup</button></a>
+</div>
+</div>
+
+<!-- MAD -->
+<div id="mad" class="modal">
+<div class="modalContent">
+<span class="close" onclick="closeModal('mad')">&times;</span>
+<h2>😡 Let’s Talk</h2>
+<p>Picture of us 💖</p>
+<img src="pic_of_us.jpg" alt="Us" style="border-radius:12px;">
+<button onclick="alert('Redeem FaceTime to talk things out 💌')">Call Me Now</button>
+</div>
+</div>
+
+<!-- SLEEP -->
+<div id="sleep" class="modal">
+<div class="modalContent">
+<span class="close" onclick="closeModal('sleep')">&times;</span>
+<h2>🌙 Relax & Sleep</h2>
+<iframe src="https://www.youtube.com/watch?v=YpkcFKp9tA8" allowfullscreen></iframe>
+</div>
+</div>
+
+<!-- LAUGH -->
+<div id="laugh" class="modal">
+<div class="modalContent">
+<span class="close" onclick="closeModal('laugh')">&times;</span>
+<h2>😂 Have a Laugh</h2>
+<iframe src="https://www.youtube.com/embed/videoseries?list=PLprankvideos" allowfullscreen></iframe>
+</div>
+</div>
+
+<!-- GOAL -->
+<div id="goal" class="modal">
+<div class="modalContent">
+<span class="close" onclick="closeModal('goal')">&times;</span>
+<h2>🎉 You Did It!</h2>
+<p>So proud of you! Enjoy this brownie 🍫 to celebrate your accomplishment</p>
+<a href="https://www.target.com/p/betty-crocker-brownie-mix/-/A-95094563" target="_blank"><button>Get Brownie</button></a>
+</div>
+</div>
+
+<!-- MISS -->
+<div id="miss" class="modal">
+<div class="modalContent">
+<span class="close" onclick="closeModal('miss')">&times;</span>
+<h2>💌 I Miss You</h2>
+<p>Watch my video message 💖</p>
+<iframe src="https://www.youtube.com/embed/YpkcFKp9tA8" allowfullscreen></iframe>
+</div>
+</div>
+
+<!-- BORED -->
+<div id="bored" class="modal">
+<div class="modalContent">
+<span class="close" onclick="closeModal('bored')">&times;</span>
+<h2>😴 Bored? Let’s Fix That!</h2>
+<p>Movie Suggestions:</p>
+<ul>
+<li>What Happened to Monday (2017)</li>
+<li>Enola Holmes (2020)</li>
+<li>Yesterday (2019)</li>
+<li>To All the Boys I’ve Loved Before (2018)</li>
+<li>The Adam Project (2022)</li>
+</ul>
 </div>
 </div>
 
@@ -205,11 +276,7 @@ function toggleNight(){document.body.classList.toggle("night");}
 function confettiBlast(){
 confetti({particleCount:200,spread:120,colors:['#f9a8d4','#f472b6','#fbcfe8','#ffffff']});
 }
-window.onclick=function(e){
-if(e.target.classList.contains("modal")){
-e.target.style.display="none";
-}
-}
+window.onclick=function(e){if(e.target.classList.contains("modal")){e.target.style.display="none";}}
 </script>
 
 </body>
